@@ -1,0 +1,1 @@
+# coupe_du_monde_2026_react_spa
