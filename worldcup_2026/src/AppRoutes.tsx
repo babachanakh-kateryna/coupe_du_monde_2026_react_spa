@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Accueil from "./components/Accueil";
-import Matchs from "./components/Matchs";
-import Equipes from "./components/Equipes";
-import Groupes from "./components/Groupes";
-import Panier from "./components/Panier";
-import Connexion from "./components/Connexion";
+import Accueil from "./pages/Accueil";
+import Matchs from "./pages/Matchs";
+import Equipes from "./pages/Equipes";
+import Groupes from "./pages/Groupes";
+import Panier from "./pages/Panier";
+import Connexion from "./pages/Connexion";
 
 export default function AppRoutes() {
   return (
