@@ -1,0 +1,2064 @@
+{
+  "info": {
+    "name": "Worldcup 2026 - Ticketing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get user profile\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success', true);",
+                  "  expect(res.getBody().data).to.have.property('id');",
+                  "  expect(res.getBody().data).to.have.property('email');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Sign In",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should login successfully\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success', true);",
+                  "  expect(res.getBody().data).to.have.property('access_token');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/auth/signin",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signin"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@doe.com\",\n  \"password\": \"azerty\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Sign Up",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should register successfully\", function() {",
+                  "  expect(res.getStatus()).to.equal(201);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody().data).to.have.property('access_token');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\",\n  \"email\": \"john@doe.com\",\n  \"password\": \"azerty\",\n  \"birthDate\": \"1980-07-07\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Docs",
+      "item": [
+        {
+          "name": "Documentation Swagger",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/docs",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "docs"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Groups",
+      "item": [
+        {
+          "name": "Get All Groups",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get all groups\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/groups",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "groups"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "A"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Group by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get group by ID\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/groups/:groupID",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "groups",
+                ":groupID"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "groupID",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should pass health check\", function() {",
+                  "    expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('status', 'healthy');",
+                  "  expect(res.getBody()).to.have.property('uptime');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Home",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get API status\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('message');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}/"
+              ],
+              "path": [],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "Get All Matches",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get all matches\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/matches",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "matches"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Match Availability",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get match availability with category breakdown\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  expect(status).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "  const data = res.getBody().data;",
+                  "",
+                  "  // Vérifier les informations générales du match",
+                  "  expect(data).to.have.property('matchId');",
+                  "  expect(data).to.have.property('homeTeam');",
+                  "  expect(data).to.have.property('awayTeam');",
+                  "  expect(data).to.have.property('stadium');",
+                  "  expect(data).to.have.property('matchDate');",
+                  "  expect(data).to.have.property('totalAvailableSeats');",
+                  "  expect(data).to.have.property('categories');",
+                  "",
+                  "  expect(typeof data.totalAvailableSeats).to.equal('number');",
+                  "  expect(data.totalAvailableSeats).to.be.at.least(0);",
+                  "",
+                  "  // Vérifier les catégories",
+                  "  const categories = data.categories;",
+                  "  const expectedCategories = ['VIP', 'CATEGORY_1', 'CATEGORY_2', 'CATEGORY_3'];",
+                  "",
+                  "  expectedCategories.forEach(category => {",
+                  "    expect(categories).to.have.property(category);",
+                  "    const cat = categories[category];",
+                  "",
+                  "    // Vérifier la structure de chaque catégorie",
+                  "    expect(cat).to.have.property('available');",
+                  "    expect(cat).to.have.property('totalSeats');",
+                  "    expect(cat).to.have.property('availableSeats');",
+                  "    expect(cat).to.have.property('soldSeats');",
+                  "    expect(cat).to.have.property('price');",
+                  "",
+                  "    // Vérifier les types",
+                  "    expect(typeof cat.available).to.equal('boolean');",
+                  "    expect(typeof cat.totalSeats).to.equal('number');",
+                  "    expect(typeof cat.availableSeats).to.equal('number');",
+                  "    expect(typeof cat.soldSeats).to.equal('number');",
+                  "    expect(typeof cat.price).to.equal('number');",
+                  "",
+                  "    // Vérifier la cohérence",
+                  "    expect(cat.availableSeats + cat.soldSeats).to.equal(cat.totalSeats);",
+                  "    expect(cat.availableSeats).to.be.at.least(0);",
+                  "    expect(cat.soldSeats).to.be.at.least(0);",
+                  "    expect(cat.price).to.be.above(0);",
+                  "",
+                  "    console.log(`${category}: ${cat.availableSeats}/${cat.totalSeats} places disponibles (${cat.soldSeats} vendues) - ${cat.price}€`);",
+                  "  });",
+                  "",
+                  "  // Afficher le résumé",
+                  "  console.log('\\n=== Résumé de disponibilité ===');",
+                  "  console.log(`Match: ${data.homeTeam} vs ${data.awayTeam}`);",
+                  "  console.log(`Stade: ${data.stadium}`);",
+                  "  console.log(`Date: ${data.matchDate}`);",
+                  "  console.log(`Capacité totale: ${data.totalAvailableSeats} places`);",
+                  "  console.log('\\nPar catégorie:');",
+                  "  expectedCategories.forEach(category => {",
+                  "    const cat = categories[category];",
+                  "    console.log(`  ${category}: ${cat.availableSeats}/${cat.totalSeats} disponibles - ${cat.price}€`);",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "# Get Match Availability\n\nRécupère la disponibilité détaillée d'un match avec le nombre de places par catégorie et les tarifs.\n\n## Informations retournées\n\nPour chaque catégorie (VIP, CATEGORY_1, CATEGORY_2, CATEGORY_3) :\n- `available` : Booléen indiquant si des places sont disponibles\n- `totalSeats` : Capacité totale de la catégorie (25% du stade)\n- `availableSeats` : Places restantes\n- `soldSeats` : Places vendues ou réservées\n- `price` : Prix du ticket pour cette catégorie\n\n## Calcul des places\n\n- La capacité est répartie équitablement (25% par catégorie)\n- Le système compte les tickets PENDING_PAYMENT, CONFIRMED et USED\n- Les prix varient selon la catégorie et le multiplicateur du match\n\n## Exemple de réponse\n\n```json\n{\n  \"categories\": {\n    \"VIP\": {\n      \"available\": true,\n      \"totalSeats\": 900,\n      \"availableSeats\": 850,\n      \"soldSeats\": 50,\n      \"price\": 320.00\n    },\n    \"CATEGORY_1\": { ... },\n    \"CATEGORY_2\": { ... },\n    \"CATEGORY_3\": { ... }\n  }\n}\n```",
+            "url": {
+              "raw": "{{baseUrl}}/matches/1/availability",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "matches",
+                "1",
+                "availability"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Match by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get match by ID\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/matches/1",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "matches",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get All Matches Availability",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get availability for all matches\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  expect(status).to.equal(200);",
+                  "",
+                  "  const data = res.getBody();",
+                  "  expect(Array.isArray(data)).to.be.true;",
+                  "  expect(data.length).to.be.above(0);",
+                  "",
+                  "  // Vérifier le premier match pour s'assurer de la structure",
+                  "  const firstMatch = data[0];",
+                  "",
+                  "  // Vérifier les informations générales du match",
+                  "  expect(firstMatch).to.have.property('id');",
+                  "  expect(firstMatch).to.have.property('homeTeam');",
+                  "  expect(firstMatch).to.have.property('awayTeam');",
+                  "  expect(firstMatch).to.have.property('stadium');",
+                  "  expect(firstMatch).to.have.property('date');",
+                  "  expect(firstMatch).to.have.property('status');",
+                  "  expect(firstMatch).to.have.property('stage');",
+                  "  expect(firstMatch).to.have.property('priceMultiplier');",
+                  "  expect(firstMatch).to.have.property('availableSeats');",
+                  "  expect(firstMatch).to.have.property('categories');",
+                  "",
+                  "  expect(typeof firstMatch.id).to.equal('number');",
+                  "  expect(typeof firstMatch.availableSeats).to.equal('number');",
+                  "  expect(firstMatch.availableSeats).to.be.at.least(0);",
+                  "",
+                  "  // Vérifier que homeTeam et awayTeam sont des objets complets",
+                  "  expect(typeof firstMatch.homeTeam).to.equal('object');",
+                  "  expect(firstMatch.homeTeam).to.have.property('id');",
+                  "  expect(firstMatch.homeTeam).to.have.property('name');",
+                  "  expect(firstMatch.homeTeam).to.have.property('code');",
+                  "  expect(firstMatch.homeTeam).to.have.property('flag');",
+                  "",
+                  "  expect(typeof firstMatch.awayTeam).to.equal('object');",
+                  "  expect(firstMatch.awayTeam).to.have.property('id');",
+                  "  expect(firstMatch.awayTeam).to.have.property('name');",
+                  "  expect(firstMatch.awayTeam).to.have.property('code');",
+                  "  expect(firstMatch.awayTeam).to.have.property('flag');",
+                  "",
+                  "  // Vérifier que stadium est un objet complet",
+                  "  expect(typeof firstMatch.stadium).to.equal('object');",
+                  "  expect(firstMatch.stadium).to.have.property('id');",
+                  "  expect(firstMatch.stadium).to.have.property('name');",
+                  "  expect(firstMatch.stadium).to.have.property('city');",
+                  "  expect(firstMatch.stadium).to.have.property('country');",
+                  "",
+                  "  // Vérifier les catégories",
+                  "  const categories = firstMatch.categories;",
+                  "  const expectedCategories = ['VIP', 'CATEGORY_1', 'CATEGORY_2', 'CATEGORY_3'];",
+                  "",
+                  "  expectedCategories.forEach(category => {",
+                  "    expect(categories).to.have.property(category);",
+                  "    const cat = categories[category];",
+                  "",
+                  "    // Vérifier la structure de chaque catégorie",
+                  "    expect(cat).to.have.property('available');",
+                  "    expect(cat).to.have.property('totalSeats');",
+                  "    expect(cat).to.have.property('availableSeats');",
+                  "    expect(cat).to.have.property('soldSeats');",
+                  "    expect(cat).to.have.property('price');",
+                  "",
+                  "    // Vérifier les types",
+                  "    expect(typeof cat.available).to.equal('boolean');",
+                  "    expect(typeof cat.totalSeats).to.equal('number');",
+                  "    expect(typeof cat.availableSeats).to.equal('number');",
+                  "    expect(typeof cat.soldSeats).to.equal('number');",
+                  "    expect(typeof cat.price).to.equal('number');",
+                  "",
+                  "    // Vérifier la cohérence",
+                  "    expect(cat.availableSeats + cat.soldSeats).to.equal(cat.totalSeats);",
+                  "    expect(cat.availableSeats).to.be.at.least(0);",
+                  "    expect(cat.soldSeats).to.be.at.least(0);",
+                  "    expect(cat.price).to.be.above(0);",
+                  "  });",
+                  "",
+                  "  // Afficher un résumé",
+                  "  console.log(`\\n=== Disponibilité pour ${data.length} matchs ===`);",
+                  "",
+                  "  // Afficher les 3 premiers matchs",
+                  "  data.slice(0, 3).forEach((match, index) => {",
+                  "    console.log(`\\n${index + 1}. ${match.homeTeam.name} ${match.homeTeam.flag} vs ${match.awayTeam.flag} ${match.awayTeam.name}`);",
+                  "    console.log(`   Stade: ${match.stadium.name} (${match.stadium.city}, ${match.stadium.country})`);",
+                  "    console.log(`   Date: ${new Date(match.date).toLocaleString('fr-FR')}`);",
+                  "    console.log(`   Status: ${match.status} | Stage: ${match.stage}`);",
+                  "    console.log(`   Capacité: ${match.availableSeats} places`);",
+                  "",
+                  "    let totalAvailable = 0;",
+                  "    expectedCategories.forEach(category => {",
+                  "      const cat = match.categories[category];",
+                  "      totalAvailable += cat.availableSeats;",
+                  "      console.log(`   ${category}: ${cat.availableSeats}/${cat.totalSeats} disponibles - ${cat.price}€`);",
+                  "    });",
+                  "    console.log(`   Total disponible: ${totalAvailable} places`);",
+                  "  });",
+                  "",
+                  "  if (data.length > 3) {",
+                  "    console.log(`\\n... et ${data.length - 3} autres matchs`);",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "# Get All Matches Availability\n\nRécupère la disponibilité détaillée de tous les matchs en une seule requête optimisée.\n\n## Avantages de cette route\n\n- **Performance** : Une seule requête au lieu de N+1 (1 pour les matchs + 1 par match)\n- **Efficacité** : Utilise seulement 2 requêtes SQL optimisées\n- **Vue d'ensemble** : Combine les informations de `/matches` et `/matches/{id}/availability`\n\n## Informations retournées\n\nPour chaque match :\n- **Informations complètes du match** : id, status, stage, priceMultiplier, date, availableSeats\n- **Équipes complètes** : objets homeTeam et awayTeam avec id, name, code, flag, confederation, continent\n- **Stade complet** : objet stadium avec id, name, city, country, capacity, timezone\n- **Disponibilité par catégorie** (VIP, CATEGORY_1, CATEGORY_2, CATEGORY_3) :\n  - `available` : Booléen indiquant si des places sont disponibles\n  - `totalSeats` : Capacité totale de la catégorie (25% du stade)\n  - `availableSeats` : Places restantes\n  - `soldSeats` : Places vendues ou réservées\n  - `price` : Prix du ticket pour cette catégorie\n\n## Cas d'usage\n\nIdéal pour :\n- Afficher une liste de matchs avec disponibilité en temps réel\n- Page d'accueil de billetterie avec drapeaux et infos complètes\n- Calendrier des matchs avec indicateur de disponibilité\n- Dashboard d'administration\n- Applications mobiles nécessitant toutes les données en une requête\n\n## Exemple de réponse\n\n```json\n[\n  {\n    \"id\": 1,\n    \"homeTeam\": {\n      \"id\": 1,\n      \"name\": \"France\",\n      \"code\": \"FRA\",\n      \"flag\": \"🇫🇷\",\n      \"confederation\": \"UEFA\",\n      \"continent\": \"Europe\"\n    },\n    \"awayTeam\": {\n      \"id\": 2,\n      \"name\": \"Germany\",\n      \"code\": \"GER\",\n      \"flag\": \"🇩🇪\",\n      \"confederation\": \"UEFA\",\n      \"continent\": \"Europe\"\n    },\n    \"stadium\": {\n      \"id\": 1,\n      \"name\": \"MetLife Stadium\",\n      \"city\": \"East Rutherford\",\n      \"country\": \"United States\",\n      \"countryCode\": \"US\",\n      \"capacity\": 82500,\n      \"timezone\": \"America/New_York\"\n    },\n    \"date\": \"2026-06-11T18:00:00.000Z\",\n    \"status\": \"upcoming\",\n    \"stage\": \"group_stage\",\n    \"priceMultiplier\": 1.0,\n    \"availableSeats\": 3600,\n    \"categories\": {\n      \"VIP\": {\n        \"available\": true,\n        \"totalSeats\": 900,\n        \"availableSeats\": 850,\n        \"soldSeats\": 50,\n        \"price\": 320.00\n      },\n      \"CATEGORY_1\": { ... },\n      \"CATEGORY_2\": { ... },\n      \"CATEGORY_3\": { ... }\n    }\n  }\n]\n```\n\n## Performance\n\nCette route est optimisée pour minimiser le nombre de requêtes SQL :\n- 1 requête pour récupérer tous les matchs\n- 1 requête pour récupérer tous les tickets groupés par match et catégorie\n- Calcul en mémoire de la disponibilité pour chaque match\n\nAu lieu de faire 1 + N requêtes (où N = nombre de matchs), cette approche\nfait seulement 2 requêtes, ce qui est beaucoup plus performant pour les\ngrandes listes de matchs.",
+            "url": {
+              "raw": "{{baseUrl}}/matches/availability",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "matches",
+                "availability"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stadiums",
+      "item": [
+        {
+          "name": "Error Cases - Capacity Logic Error",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should handle minCapacity > maxCapacity error\", function() {",
+                  "  expect(res.getStatus()).to.equal(400);",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('message');",
+                  "  expect(res.getBody().message).to.be.a('string');",
+                  "  expect(res.getBody().message).to.include('minCapacity cannot be greater than maxCapacity');",
+                  "});",
+                  "",
+                  "test(\"should have proper error response structure\", function() {",
+                  "  const body = res.getBody();",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "",
+                  "  expect(body).to.have.property('message');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?minCapacity=80000&maxCapacity=50000",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?minCapacity=80000&maxCapacity=50000"
+              ],
+              "query": [
+                {
+                  "key": "minCapacity",
+                  "value": "80000"
+                },
+                {
+                  "key": "maxCapacity",
+                  "value": "50000"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Error Cases - Invalid Capacity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should handle invalid capacity parameter\", function() {",
+                  "  expect(res.getStatus()).to.equal(400);",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('message');",
+                  "  expect(res.getBody().message).to.be.a('string');",
+                  "  expect(res.getBody().message).to.include('minCapacity must be a positive number');",
+                  "});",
+                  "",
+                  "test(\"should have proper error response structure\", function() {",
+                  "  const body = res.getBody();",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "",
+                  "  expect(body).to.have.property('message');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?minCapacity=invalid",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?minCapacity=invalid"
+              ],
+              "query": [
+                {
+                  "key": "minCapacity",
+                  "value": "invalid"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Error Cases - Invalid Country",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should handle invalid country gracefully\", function() {",
+                  "  // L'API retourne maintenant 400 (Bad Request) pour un pays invalide",
+                  "  const status = res.getStatus();",
+                  "  expect(status).to.equal(400);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('message');",
+                  "  expect(res.getBody().message).to.be.a('string');",
+                  "  expect(res.getBody().message).to.include('Invalid country');",
+                  "  expect(res.getBody().message).to.include('USA, CANADA, MEXICO');",
+                  "});",
+                  "",
+                  "test(\"should have proper response structure for invalid country\", function() {",
+                  "  const body = res.getBody();",
+                  "  expect(body).to.have.property('success');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?country=INVALID",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?country=INVALID"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "INVALID"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Error Cases - Stadium Not Found",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should return 404 for non-existent stadium\", function() {",
+                  "  expect(res.getStatus()).to.equal(404);",
+                  "  expect(res.getBody()).to.have.property('success',false);",
+                  "  expect(res.getBody()).to.have.property('message');",
+                  "  expect(res.getBody().message).to.be.a('string');",
+                  "  expect(res.getBody().message.toLowerCase()).to.include('not found');",
+                  "});",
+                  "",
+                  "test(\"should have proper error response structure\", function() {",
+                  "  const body = res.getBody();",
+                  "  expect(body).to.have.property('success');",
+                  "  expect(body).to.have.property('message');",
+                  "",
+                  "  expect(body.success).to.equal(false);",
+                  "  expect(body.message).to.be.a('string');",
+                  "  expect(body.timestamp).to.be.a('string');",
+                  "",
+                  "  // Vérifier que le timestamp est une date valide",
+                  "  expect(new Date(body.timestamp)).to.be.instanceOf(Date);",
+                  "  expect(new Date(body.timestamp).toString()).to.not.equal('Invalid Date');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums/999999",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums",
+                "999999"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get All Stadiums",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get all stadiums\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "  expect(res.getBody()).to.have.property('count');",
+                  "  expect(res.getBody()).to.have.property('timestamp');",
+                  "",
+                  "  // Vérifier que count correspond à la taille du tableau",
+                  "  expect(res.getBody().count).to.equal(res.getBody().data.length);",
+                  "",
+                  "  if (res.getBody().data.length > 0) {",
+                  "    const stadium = res.getBody().data[0];",
+                  "    expect(stadium).to.have.property('id');",
+                  "    expect(stadium).to.have.property('name');",
+                  "    expect(stadium).to.have.property('city');",
+                  "    expect(stadium).to.have.property('country');",
+                  "    expect(stadium).to.have.property('capacity');",
+                  "    expect(stadium).to.have.property('timezone');",
+                  "    expect(stadium).to.have.property('features');",
+                  "    expect(stadium.capacity).to.be.a('number');",
+                  "    expect(['USA', 'CANADA', 'MEXICO']).to.include(stadium.country);",
+                  "  }",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadium Matches",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get matches for stadium\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "",
+                  "  // Vérifier que tous les matchs sont bien associés au stade",
+                  "  res.getBody().data.forEach(match => {",
+                  "    expect(match).to.have.property('id');",
+                  "    expect(match).to.have.property('stadiumId');",
+                  "    expect(match.stadiumId).to.equal(1);",
+                  "    expect(match).to.have.property('homeTeamId');",
+                  "    expect(match).to.have.property('awayTeamId');",
+                  "    expect(match).to.have.property('date');",
+                  "    expect(match).to.have.property('status');",
+                  "    expect(match).to.have.property('stage');",
+                  "  });",
+                  "});",
+                  "",
+                  "test(\"should validate match data structure\", function() {",
+                  "  const matches = res.getBody().data;",
+                  "",
+                  "  matches.forEach(match => {",
+                  "    expect(match.id).to.be.a('number');",
+                  "    expect(match.stadiumId).to.be.a('number');",
+                  "    expect(match.homeTeamId).to.be.a('number');",
+                  "    expect(match.awayTeamId).to.be.a('number');",
+                  "    expect(match.date).to.be.a('string');",
+                  "    expect(['scheduled', 'live', 'finished', 'cancelled']).to.include(match.status);",
+                  "    expect(['group', 'round_of_32', 'round_of_16', 'quarter_finals', 'semi_finals', 'third_place', 'final']).to.include(match.stage);",
+                  "",
+                  "    // Vérifier que la date est au bon format",
+                  "    expect(new Date(match.date)).to.be.instanceOf(Date);",
+                  "    expect(new Date(match.date).toString()).to.not.equal('Invalid Date');",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums/1/matches",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums",
+                "1",
+                "matches"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadium by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get stadium by ID\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "  const stadium = res.getBody().data;",
+                  "  expect(stadium).to.have.property('id');",
+                  "  expect(stadium).to.have.property('name');",
+                  "  expect(stadium).to.have.property('city');",
+                  "  expect(stadium).to.have.property('country');",
+                  "  expect(stadium).to.have.property('countryCode');",
+                  "  expect(stadium).to.have.property('capacity');",
+                  "  expect(stadium).to.have.property('timezone');",
+                  "  expect(stadium).to.have.property('features');",
+                  "",
+                  "  expect(stadium.id).to.be.a('number');",
+                  "  expect(stadium.name).to.be.a('string');",
+                  "  expect(stadium.city).to.be.a('string');",
+                  "  expect(['USA', 'CANADA', 'MEXICO']).to.include(stadium.country);",
+                  "  expect(stadium.countryCode).to.have.lengthOf(2);",
+                  "  expect(stadium.capacity).to.be.a('number');",
+                  "  expect(stadium.capacity).to.be.above(0);",
+                  "  expect(stadium.timezone).to.be.a('string');",
+                  "  expect(stadium.features).to.be.an('array');",
+                  "});",
+                  "",
+                  "test(\"should have valid stadium properties\", function() {",
+                  "  const stadium = res.getBody().data;",
+                  "",
+                  "  // Vérifier que la capacité est réaliste pour un stade",
+                  "  expect(stadium.capacity).to.be.at.least(10000);",
+                  "  expect(stadium.capacity).to.be.at.most(100000);",
+                  "",
+                  "  // Vérifier que le timezone est au bon format",
+                  "  //expect(stadium.timezone).to.match(/^[A-Za-z_\\/]+$/);",
+                  "",
+                  "  // Vérifier que les features sont des chaînes",
+                  "  stadium.features.forEach(feature => {",
+                  "    expect(feature).to.be.a('string');",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums/1",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadiums by City",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get stadiums by city\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "",
+                  "  // Tous les stades retournés doivent être de Los Angeles",
+                  "  res.getBody().data.forEach(stadium => {",
+                  "    expect(stadium.city).to.equal('Los Angeles');",
+                  "    expect(stadium).to.have.property('id');",
+                  "    expect(stadium).to.have.property('name');",
+                  "    expect(stadium).to.have.property('country');",
+                  "    expect(stadium).to.have.property('capacity');",
+                  "  });",
+                  "});",
+                  "",
+                  "test(\"should validate city stadiums data\", function() {",
+                  "  const stadiums = res.getBody().data;",
+                  "",
+                  "  stadiums.forEach(stadium => {",
+                  "    expect(stadium.city).to.be.a('string');",
+                  "    expect(stadium.name).to.be.a('string');",
+                  "    expect(stadium.capacity).to.be.a('number');",
+                  "    expect(stadium.timezone).to.be.a('string');",
+                  "    expect(stadium.features).to.be.an('array');",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?city=Los Angeles",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?city=Los Angeles"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Los Angeles"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadiums by Country",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get stadiums by country\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "  expect(res.getBody()).to.have.property('count');",
+                  "  expect(res.getBody()).to.have.property('filters');",
+                  "  expect(res.getBody()).to.have.property('timestamp');",
+                  "",
+                  "  // Vérifier que le filtre est correctement retourné",
+                  "  expect(res.getBody().filters).to.have.property('country', 'USA');",
+                  "  expect(res.getBody().count).to.equal(res.getBody().data.length);",
+                  "",
+                  "  // Tous les stades retournés doivent être des États-Unis",
+                  "  res.getBody().data.forEach(stadium => {",
+                  "    expect(stadium.country).to.equal('USA');",
+                  "    expect(stadium).to.have.property('id');",
+                  "    expect(stadium).to.have.property('name');",
+                  "    expect(stadium).to.have.property('city');",
+                  "    expect(stadium).to.have.property('capacity');",
+                  "  });",
+                  "});",
+                  "",
+                  "test(\"should validate USA stadiums data\", function() {",
+                  "  const stadiums = res.getBody().data;",
+                  "",
+                  "  stadiums.forEach(stadium => {",
+                  "    expect(stadium.countryCode).to.equal('US');",
+                  "    expect(stadium.capacity).to.be.a('number');",
+                  "    expect(stadium.capacity).to.be.above(0);",
+                  "    expect(stadium.timezone).to.be.a('string');",
+                  "    expect(stadium.features).to.be.an('array');",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?country=USA",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?country=USA"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "USA"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadiums with Capacity Filter",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get stadiums filtered by capacity\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "  expect(res.getBody()).to.have.property('count');",
+                  "  expect(res.getBody()).to.have.property('filters');",
+                  "",
+                  "  // Vérifier que les filtres sont correctement retournés",
+                  "  expect(res.getBody().filters).to.have.property('minCapacity', 50000);",
+                  "  expect(res.getBody().filters).to.have.property('maxCapacity', 80000);",
+                  "",
+                  "  // Vérifier que tous les stades respectent les critères de capacité",
+                  "  res.getBody().data.forEach(stadium => {",
+                  "    expect(stadium.capacity).to.be.at.least(50000);",
+                  "    expect(stadium.capacity).to.be.at.most(80000);",
+                  "    expect(stadium).to.have.property('id');",
+                  "    expect(stadium).to.have.property('name');",
+                  "    expect(stadium).to.have.property('city');",
+                  "    expect(stadium).to.have.property('country');",
+                  "  });",
+                  "});",
+                  "",
+                  "test(\"should validate capacity filter results\", function() {",
+                  "  const stadiums = res.getBody().data;",
+                  "",
+                  "  stadiums.forEach(stadium => {",
+                  "    expect(stadium.capacity).to.be.a('number');",
+                  "    expect(stadium.capacity).to.be.above(49999);",
+                  "    expect(stadium.capacity).to.be.less(80001);",
+                  "  });",
+                  "",
+                  "  // Vérifier que les résultats sont triés par nom alphabétique",
+                  "  if (stadiums.length > 1) {",
+                  "    for (let i = 1; i < stadiums.length; i++) {",
+                  "      expect(stadiums[i-1].name.toLowerCase()).to.be.at.most(stadiums[i].name.toLowerCase());",
+                  "    }",
+                  "  }",
+                  "});",
+                  "",
+                  "test(\"should have consistent response structure\", function() {",
+                  "  const body = res.getBody();",
+                  "  expect(body.count).to.equal(body.data.length);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?minCapacity=50000&maxCapacity=80000",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?minCapacity=50000&maxCapacity=80000"
+              ],
+              "query": [
+                {
+                  "key": "minCapacity",
+                  "value": "50000"
+                },
+                {
+                  "key": "maxCapacity",
+                  "value": "80000"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Stadiums with Combined Filters",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get stadiums with combined filters\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "  expect(res.getBody()).to.have.property('count');",
+                  "  expect(res.getBody()).to.have.property('filters');",
+                  "",
+                  "  // Vérifier que les filtres sont correctement appliqués",
+                  "  expect(res.getBody().filters).to.have.property('country', 'USA');",
+                  "  expect(res.getBody().filters).to.have.property('minCapacity', 75000);",
+                  "",
+                  "  // Tous les stades retournés doivent respecter les critères",
+                  "  res.getBody().data.forEach(stadium => {",
+                  "    expect(stadium.country).to.equal('USA');",
+                  "    expect(stadium.capacity).to.be.at.least(75000);",
+                  "    expect(stadium).to.have.property('id');",
+                  "    expect(stadium).to.have.property('name');",
+                  "    expect(stadium).to.have.property('city');",
+                  "  });",
+                  "});",
+                  "",
+                  "test(\"should validate combined filter results\", function() {",
+                  "  const stadiums = res.getBody().data;",
+                  "  const filters = res.getBody().filters;",
+                  "",
+                  "  // Vérifier que le count correspond à la taille du tableau",
+                  "  expect(res.getBody().count).to.equal(stadiums.length);",
+                  "",
+                  "  // Vérifier que tous les stades respectent les critères combinés",
+                  "  stadiums.forEach(stadium => {",
+                  "    expect(stadium.country).to.equal(filters.country);",
+                  "    expect(stadium.capacity).to.be.at.least(filters.minCapacity);",
+                  "    expect(stadium.capacity).to.be.a('number');",
+                  "    expect(stadium.name).to.be.a('string');",
+                  "    expect(stadium.city).to.be.a('string');",
+                  "  });",
+                  "",
+                  "  // Vérifier que les résultats sont triés par nom (alphabétique)",
+                  "  if (stadiums.length > 1) {",
+                  "    for (let i = 1; i < stadiums.length; i++) {",
+                  "      expect(stadiums[i-1].name.toLowerCase()).to.be.at.most(stadiums[i].name.toLowerCase());",
+                  "    }",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/stadiums?country=USA&minCapacity=75000",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stadiums?country=USA&minCapacity=75000"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "USA"
+                },
+                {
+                  "key": "minCapacity",
+                  "value": "75000"
+                }
+              ],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        {
+          "name": "Get All Teams filtered by Group name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get all teams\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/teams?group=A",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams?group=A"
+              ],
+              "query": [
+                {
+                  "key": "group",
+                  "value": "A"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get All Teams",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get all teams\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ],
+              "query": [
+                {
+                  "key": "group",
+                  "value": "A"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get Team by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get team by ID\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/teams/:teamId",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                ":teamId"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "teamId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Teams by Group",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should get teams by group\", function() {",
+                  "  expect(res.getStatus()).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "  expect(res.getBody().data).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/teams/group/:groupId",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "group",
+                ":groupId"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "groupId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "1. Add Tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should create tickets in PENDING_PAYMENT status\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  if (status === 201) {",
+                  "    expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "    expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "    const data = res.getBody().data;",
+                  "    expect(data).to.have.property('tickets');",
+                  "    expect(data).to.have.property('totalPrice');",
+                  "    expect(data).to.have.property('expiresAt');",
+                  "",
+                  "    expect(data.tickets).to.be.an('array');",
+                  "    expect(data.tickets.length).to.equal(2);",
+                  "",
+                  "    // Check each ticket",
+                  "    data.tickets.forEach((ticket) => {",
+                  "      expect(ticket).to.have.property('id');",
+                  "      expect(ticket).to.have.property('status', 'pending_payment');",
+                  "      expect(ticket).to.have.property('category', 'CATEGORY_2');",
+                  "      expect(ticket).to.have.property('price');",
+                  "      expect(ticket).to.have.property('expiresAt');",
+                  "      expect(ticket).to.not.have.property('seatNumber'); // Not assigned yet",
+                  "      expect(ticket).to.not.have.property('qrCode'); // Not generated yet",
+                  "    });",
+                  "",
+                  "    console.log('Created', data.tickets.length, 'tickets');",
+                  "    console.log('Total price:', data.totalPrice);",
+                  "    console.log('Expires at:', data.expiresAt);",
+                  "",
+                  "    // Store for next tests",
+                  "    bru.setVar(\"pending_ticket_count\", data.tickets.length);",
+                  "",
+                  "    // Store the first ticket ID for deletion test",
+                  "    if (data.tickets.length > 0) {",
+                  "      bru.setVar(\"ticket_id\", data.tickets[0].id);",
+                  "      console.log('First ticket ID stored:', data.tickets[0].id);",
+                  "    }",
+                  "  } else {",
+                  "    console.log('Add failed with status:', status);",
+                  "    console.log('Response:', res.getBody());",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchId\": 1,\n  \"category\": \"CATEGORY_2\",\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "2. Get Pending Tickets (Virtual Cart)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should show virtual cart (pending tickets)\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  expect(status).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "  const data = res.getBody().data;",
+                  "  expect(data).to.have.property('tickets');",
+                  "  expect(data).to.have.property('count');",
+                  "  expect(data).to.have.property('totalPrice');",
+                  "",
+                  "  const expectedCount = parseInt(bru.getVar(\"pending_ticket_count\") || \"0\");",
+                  "  expect(data.count).to.equal(expectedCount);",
+                  "",
+                  "  if (data.count > 0) {",
+                  "    // All tickets should be pending_payment",
+                  "    data.tickets.forEach((ticket) => {",
+                  "      expect(ticket).to.have.property('status', 'pending_payment');",
+                  "    });",
+                  "",
+                  "    // Store the first ticket ID for deletion test",
+                  "    if (data.tickets.length > 0) {",
+                  "      bru.setVar(\"ticket_id\", data.tickets[0].id);",
+                  "      console.log('First ticket ID stored for deletion:', data.tickets[0].id);",
+                  "    }",
+                  "  } else {",
+                  "    console.log('No pending tickets found');",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/tickets/pending",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "pending"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "2.5. Delete Pending Ticket",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should delete a pending ticket from cart\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  if (status === 200) {",
+                  "    expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "    expect(res.getBody()).to.have.property('message', 'Ticket supprimé avec succès');",
+                  "",
+                  "    console.log('✓ Ticket deleted successfully');",
+                  "",
+                  "    // Decrement pending ticket count",
+                  "    const currentCount = parseInt(bru.getVar(\"pending_ticket_count\") || \"0\");",
+                  "    if (currentCount > 0) {",
+                  "      bru.setVar(\"pending_ticket_count\", currentCount - 1);",
+                  "      console.log('Remaining pending tickets:', currentCount - 1);",
+                  "    }",
+                  "  } else if (status === 400) {",
+                  "    console.log('Delete failed with status 400');",
+                  "    const body = res.getBody();",
+                  "    expect(body).to.have.property('result', 'error');",
+                  "    expect(body).to.have.property('message');",
+                  "    console.log('Error message:', body.message);",
+                  "  } else {",
+                  "    console.log('Unexpected status:', status);",
+                  "    console.log('Response:', res.getBody());",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "# Delete Pending Ticket\n\nSupprime un ticket en attente de paiement du panier virtuel.\n\n## Prérequis\n\n- Être authentifié (Bearer token)\n- Avoir au moins un ticket en attente\n- Définir la variable `ticket_id` avec l'UUID du ticket à supprimer\n\n## Comment obtenir un ticket_id\n\n1. Exécutez \"1. Add Tickets\" pour créer des tickets\n2. Exécutez \"2. Get Pending Tickets\" et copiez l'ID d'un ticket\n3. Définissez la variable `ticket_id` dans l'environnement ou dans la collection\n\n## Comportement\n\n- ✅ Supprime le ticket si status = `pending_payment`\n- ✅ Libère automatiquement la place dans le match\n- ❌ Erreur si le ticket n'existe pas\n- ❌ Erreur si le ticket est déjà confirmé ou utilisé\n- ❌ Erreur si le ticket appartient à un autre utilisateur\n\n## Variables modifiées\n\n- `pending_ticket_count`: Décrémenté de 1 après suppression réussie",
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticket_id}}",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticket_id}}"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "3. Pay All Pending Tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should confirm all pending tickets\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  if (status === 200) {",
+                  "    expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "    expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "    const data = res.getBody().data;",
+                  "    expect(data).to.have.property('tickets');",
+                  "    expect(data).to.have.property('count');",
+                  "    expect(data).to.have.property('totalPrice');",
+                  "",
+                  "    console.log('Payment successful for', data.count, 'tickets');",
+                  "    console.log('Total paid:', data.totalPrice);",
+                  "",
+                  "    // All tickets should now be confirmed with seat and QR",
+                  "    data.tickets.forEach((ticket) => {",
+                  "      expect(ticket).to.have.property('status', 'confirmed');",
+                  "      expect(ticket).to.have.property('seatNumber');",
+                  "      expect(ticket).to.have.property('qrCode');",
+                  "      expect(ticket).to.have.property('paymentDate');",
+                  "",
+                  "      expect(ticket.seatNumber).to.match(/^[A-J]\\d{2}-\\d{2}$/);",
+                  "      expect(ticket.qrCode).to.match(/^QR-[A-Z0-9]{9}$/);",
+                  "",
+                  "      console.log(`Ticket ${ticket.id}: ${ticket.seatNumber} (${ticket.qrCode})`);",
+                  "    });",
+                  "",
+                  "    // Store first ticket for validation test",
+                  "    if (data.tickets.length > 0) {",
+                  "      bru.setVar(\"confirmed_ticket_id\", data.tickets[0].id);",
+                  "      bru.setVar(\"confirmed_ticket_qr\", data.tickets[0].qrCode);",
+                  "    }",
+                  "  } else {",
+                  "    console.log('Payment failed with status:', status);",
+                  "    console.log('Response:', res.getBody());",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/tickets/pay-pending",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "pay-pending"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "4. Get All User Tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should show all user tickets grouped by status\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  expect(status).to.equal(200);",
+                  "  expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "  expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "  const data = res.getBody().data;",
+                  "  expect(data).to.have.property('tickets');",
+                  "  expect(data).to.have.property('grouped');",
+                  "  expect(data).to.have.property('counts');",
+                  "",
+                  "  const grouped = data.grouped;",
+                  "  const counts = data.counts;",
+                  "",
+                  "  expect(grouped).to.have.property('pending');",
+                  "  expect(grouped).to.have.property('confirmed');",
+                  "  expect(grouped).to.have.property('used');",
+                  "",
+                  "  console.log('Total tickets:', counts.total);",
+                  "  console.log('Pending:', counts.pending);",
+                  "  console.log('Confirmed:', counts.confirmed);",
+                  "  console.log('Used:', counts.used);",
+                  "",
+                  "  // Show ticket details",
+                  "  if (counts.confirmed > 0) {",
+                  "    console.log('\\nConfirmed tickets:');",
+                  "    grouped.confirmed.forEach((ticket, index) => {",
+                  "      console.log(`${index + 1}. ${ticket.match?.homeTeam} vs ${ticket.match?.awayTeam}`);",
+                  "      console.log(`   Category: ${ticket.category}, Price: ${ticket.price}€`);",
+                  "      console.log(`   Seat: ${ticket.seatNumber}, QR: ${ticket.qrCode}`);",
+                  "    });",
+                  "  }",
+                  "",
+                  "  if (counts.pending > 0) {",
+                  "    console.log('\\nPending tickets:');",
+                  "    grouped.pending.forEach((ticket, index) => {",
+                  "      console.log(`${index + 1}. ${ticket.match?.homeTeam} vs ${ticket.match?.awayTeam}`);",
+                  "      console.log(`   Expires: ${ticket.expiresAt}`);",
+                  "    });",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "5. Validate Ticket",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "test(\"should validate confirmed ticket\", function() {",
+                  "  const status = res.getStatus();",
+                  "",
+                  "  if (status === 200) {",
+                  "    expect(res.getBody()).to.have.property('success',true);",
+                  "",
+                  "    expect(res.getBody()).to.have.property('data');",
+                  "",
+                  "    const ticket = res.getBody().data;",
+                  "    expect(ticket).to.have.property('status', 'used');",
+                  "    expect(ticket).to.have.property('id');",
+                  "    expect(ticket).to.have.property('seatNumber');",
+                  "    expect(ticket).to.have.property('qrCode');",
+                  "",
+                  "    console.log('Ticket validated successfully:', ticket.id);",
+                  "    console.log('Status changed to:', ticket.status);",
+                  "    console.log('Seat:', ticket.seatNumber);",
+                  "",
+                  "    if (ticket.match) {",
+                  "      console.log('Match:', `${ticket.match.homeTeam} vs ${ticket.match.awayTeam}`);",
+                  "      console.log('Stadium:', ticket.match.stadium);",
+                  "    }",
+                  "  } else {",
+                  "    console.log('Validation failed with status:', status);",
+                  "    console.log('Response:', res.getBody());",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{confirmed_ticket_id}}/validate",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{confirmed_ticket_id}}",
+                "validate"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qrCode\": \"{{confirmed_ticket_qr}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "ticket_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "confirmed_ticket_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "confirmed_ticket_qr",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
