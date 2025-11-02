@@ -1,0 +1,34 @@
+.toast-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+
+.toast-card {
+    max-width: 500px;
+    width: 100%;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.toast-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.toast-message {
+    font-size: 0.95rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

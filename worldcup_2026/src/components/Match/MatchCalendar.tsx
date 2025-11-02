@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { MatchService } from '../../api/services/MatchService';
 import type { MatchAvailability } from '../../api/types/Match';
 import fifaLogo from '../../assets/fifa-world-cup-2026-logo.png';
-
+import ToastNotification from '../Common/ToastNotification';
+import './PageMatchs.css';
 
 interface CellMatch {
     match: MatchAvailability;
@@ -14,6 +15,7 @@ function MatchCalendar() {
     const [allMatches, setAllMatches] = useState<MatchAvailability[]>([]);
     const [filteredMatches, setFilteredMatches] = useState<MatchAvailability[]>([]);
     const [loading, setLoading] = useState(true);
+    const [toast, setToast] = useState<{ type: 'success' | 'error' | 'warning' | 'info'; message: string } | null>(null);
 
     // filters
     const [teamFilter, setTeamFilter] = useState('');
@@ -31,6 +33,7 @@ function MatchCalendar() {
                 setFilteredMatches(data);
             } catch (err) {
                 console.error('Erreur:', err);
+                setToast({type: 'error',message: 'Impossible de charger les matchs. Veuillez réessayer.',});
             } finally {
                 setLoading(false);
             }
@@ -66,6 +69,13 @@ function MatchCalendar() {
 
         setFilteredMatches(filtered);
 
+        // if nothing found so - toast message
+        if (filtered.length === 0) {
+            setToast({ type: 'warning',message: 'Aucun match ne correspond à vos critères.',});
+
+            //clear les filtres
+            clearFilters();
+        }
     };
 
     const clearFilters = () => {
@@ -115,7 +125,6 @@ function MatchCalendar() {
         filteredMatches.forEach(m => set.add(m.date.split('T')[0]));
         return Array.from(set).sort();
     };
-
 
     const formatDateHeader = (dateStr: string) => {
         const date = new Date(dateStr);
@@ -197,7 +206,7 @@ function MatchCalendar() {
                             <thead className="bg-dark text-white">
                                 <tr>
                                     <th className="text-start sticky-left bg-dark p-3">
-                                        <img src={fifaLogo} alt="FIFA World Cup 2026" className="img-fluid" style={{ maxHeight: '40px' }}/>
+                                        <img src={fifaLogo} alt="FIFA World Cup 2026" className="img-fluid table-logo-img"/>
                                     </th>
                                     
                                     {currentDates.map(date => (
@@ -226,8 +235,7 @@ function MatchCalendar() {
                                                         <div className="d-flex flex-column gap-1">
                                                             {cellMatches.map((cm, idx) => (
 
-                                                                <div key={idx} className={`badge ${getMatchColor(cm.match)} text-white text-start p-2`}
-                                                                    style={{fontSize: '0.65rem',cursor: 'pointer',lineHeight: '1.1',}}>
+                                                                <div key={idx} className={`badge ${getMatchColor(cm.match)} text-white text-start p-2 table-badge-small`}>
 
                                                                     <div className="fw-bold">{cm.time}</div>
                                                                     <div>{cm.match.homeTeam.code} vs {cm.match.awayTeam.code}</div>
@@ -235,7 +243,7 @@ function MatchCalendar() {
                                                                 </div>
                                                             ))}
                                                         </div>
-                                                    ) : (<div className="text-center text-muted" style={{ fontSize: '0.7rem' }}>—</div>)}
+                                                    ) : (<div className="text-center text-muted table-empty-cell">—</div>)}
                                                 </td>
 
                                             );
@@ -247,6 +255,9 @@ function MatchCalendar() {
                     </div>
                 </div>
             </div>
+
+            {toast && (<ToastNotification 
+                type={toast.type} message={toast.message}  onClose={() => setToast(null)}/>)}
         </div>
     );
 };
