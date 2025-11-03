@@ -132,7 +132,7 @@
 .match-color-1 { background: #1976D2; }
 .match-color-2 { background: #ffa10a; }
 .match-color-3 { background: #3bb03f; }
-.match-color-4 { background: #78909C; }
+.match-color-4 { background: #51646d; }
 .match-color-5 { background: #9C27B0; }
 .match-color-6 { background: #ff4d16; }
 .match-color-7 { background: #00BCD4; }
@@ -153,8 +153,10 @@
 }
 
 .team-flag {
-  width: 18px !important;
-  height: 18px !important;
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 .team-code {

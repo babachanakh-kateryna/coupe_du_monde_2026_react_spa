@@ -6,7 +6,7 @@ import ToastNotification from '../Common/ToastNotification';
 import './MatchCalendar.css';
 import FilterPopUp from './FilterPopUp';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell, Avatar } from '@mui/material';
+import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 
 interface CellMatch {
     match: MatchAvailability;
@@ -210,11 +210,13 @@ function MatchCalendar() {
                                                         <div key={idx} className={`match-card match-color-${cm.match.homeTeam.groupId % 8 || 8}`}>
                                                             <div className="match-time">{cm.time}</div>
                                                             <div className="match-teams">
-                                                                <Avatar src={cm.match.homeTeam.flag} className="team-flag" />
+                                                                <img src={new URL(`../../assets/flags/${cm.match.homeTeam.code}.png`, import.meta.url).href}
+                                                                    alt={cm.match.homeTeam.code} className="team-flag" />
                                                                 <span className="team-code">{cm.match.homeTeam.code}</span>
                                                                 <span className="vs">vs</span>
                                                                 <span className="team-code">{cm.match.awayTeam.code}</span>
-                                                                <Avatar src={cm.match.awayTeam.flag} className="team-flag" />
+                                                                <img src={new URL(`../../assets/flags/${cm.match.awayTeam.code}.png`, import.meta.url).href}
+                                                                    alt={cm.match.homeTeam.code} className="team-flag" />
                                                             </div>
                                                         </div>
                                                     ))}
