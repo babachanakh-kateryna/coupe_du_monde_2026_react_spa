@@ -48,7 +48,9 @@
 }
 
 .fifa-logo {
-  height: 75px;
+  width: 150px;
+  height: auto;
+  display: block;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
@@ -114,7 +116,6 @@
 }
 
 .match-card {
-  background: var(--match-color);
   color: white;
   border-radius: 12px;
   padding: 10px 12px;
@@ -157,6 +158,7 @@
   height: 18px;
   object-fit: cover;
   border-radius: 2px;
+  display: block;
 }
 
 .team-code {
@@ -183,8 +185,11 @@
 
 .table-scroll-container {
   width: 100%;
+  min-height: 600px;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 20px;
+  margin-bottom: -20px;
 }
 
 
