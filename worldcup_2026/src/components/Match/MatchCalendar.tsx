@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MatchService } from '../../api/services/MatchService';
 import type { MatchAvailability } from '../../api/types/Match';
+import MatchDetailPopUp from './MatchDetailPopUp';
 import fifaLogo from '../../assets/fifa-world-cup-2026-logo.png';
 import ToastNotification from '../Common/ToastNotification';
 import './MatchCalendar.css';
@@ -18,6 +19,8 @@ function MatchCalendar() {
     const [allMatches, setAllMatches] = useState<MatchAvailability[]>([]);
     const [filteredMatches, setFilteredMatches] = useState<MatchAvailability[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedMatch, setSelectedMatch] = useState<MatchAvailability | null>(null);
+    const [showMatchModal, setShowMatchModal] = useState(false);
     const [showFilterPopUp, setShowFilterPopUp] = useState(false);
     const [toast, setToast] = useState<{ type: 'success' | 'error' | 'warning' | 'info'; message: string } | null>(null);
 
@@ -33,6 +36,9 @@ function MatchCalendar() {
             setLoading(true);
             try {
                 const data = await MatchService.getAllMatchesWithAvailability();
+                console.log(data)
+                const data1 = await MatchService.getMatches();
+                console.log(data1)
                 setAllMatches(data);
                 setFilteredMatches(data);
             } catch (err) {
@@ -129,6 +135,11 @@ function MatchCalendar() {
         return Array.from(set).sort();
     };
 
+    const openMatchDetail = (match: MatchAvailability) => {
+        setSelectedMatch(match);
+        setShowMatchModal(true);
+    };
+
     const formatDateHeader = (dateStr: string) => {
         const date = new Date(dateStr);
         const day = date.getDate();
@@ -207,7 +218,8 @@ function MatchCalendar() {
                                             {cellMatches.length > 0 ? (
                                                 <div className="matches-stack">
                                                     {cellMatches.map((cm, idx) => (
-                                                        <div key={idx} className={`match-card match-color-${cm.match.homeTeam.groupId % 8 || 8}`}>
+                                                        <div key={idx} className={`match-card match-color-${cm.match.homeTeam.groupId % 8 || 8}`}
+                                                            onClick={() => openMatchDetail(cm.match)}>
                                                             <div className="match-time">{cm.time}</div>
                                                             <div className="match-teams">
                                                                 <img src={new URL(`../../assets/flags/${cm.match.homeTeam.code}.png`, import.meta.url).href}
@@ -231,8 +243,14 @@ function MatchCalendar() {
                     </Table>
                 </div>
             </Card>
+
+    <MatchDetailPopUp 
+        match={selectedMatch} 
+        show={showMatchModal} 
+        onHide={() => setShowMatchModal(false)} 
+    />
       
-      {toast && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
+    {toast && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     
     </Box>
     );
