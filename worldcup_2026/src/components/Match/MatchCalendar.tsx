@@ -4,6 +4,7 @@ import type { MatchAvailability } from '../../api/types/Match';
 import fifaLogo from '../../assets/fifa-world-cup-2026-logo.png';
 import ToastNotification from '../Common/ToastNotification';
 import './PageMatchs.css';
+import FilterPopUp from './FilterPopUp';
 
 interface CellMatch {
     match: MatchAvailability;
@@ -15,6 +16,7 @@ function MatchCalendar() {
     const [allMatches, setAllMatches] = useState<MatchAvailability[]>([]);
     const [filteredMatches, setFilteredMatches] = useState<MatchAvailability[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showFilterPopUp, setShowFilterPopUp] = useState(false);
     const [toast, setToast] = useState<{ type: 'success' | 'error' | 'warning' | 'info'; message: string } | null>(null);
 
     // filters
@@ -62,9 +64,8 @@ function MatchCalendar() {
         }
 
         if (dateFilter) {
-            const selected = new Date(dateFilter);
-            const selectedStr = selected.toISOString().split('T')[0];
-            filtered = filtered.filter(m => m.date.startsWith(selectedStr));
+            const d = new Date(dateFilter);
+            filtered = filtered.filter(m => new Date(m.date).toDateString() === d.toDateString());
         }
 
         setFilteredMatches(filtered);
@@ -169,33 +170,25 @@ function MatchCalendar() {
     return (
         
         <div className="container-fluid">
-            <h1 className="mt-3 mb-3 text-center">Le calendrier des matches</h1>
-            {/* Filtres */}
-            <div className="row g-3 mb-4 align-items-center">
-
-                <div className="col-md-3">
-                    <input type="text" className="form-control form-control-sm" placeholder="Nom de l'équipe..."
-                        value={teamFilter} onChange={e => setTeamFilter(e.target.value)}/>
-                </div>
-
-                <div className="col-md-2">
-                    <input type="number" className="form-control form-control-sm" placeholder="Groupe ID" value={groupFilter}
-                        onChange={e => setGroupFilter(e.target.value)} min="1" />
-                </div>
-
-                <div className="col-md-2">
-                    <input type="date" className="form-control form-control-sm" value={dateFilter} 
-                        onChange={(e) => setDateFilter(e.target.value)}/>
-                </div>
-
-                <div className="col-md-1">
-                    <button className="btn btn-success btn-sm w-100" onClick={applyFilters}>Confirmer</button>
-                </div>
-                
-                <div className="col-md-1">
-                    <button className="btn btn-outline-danger btn-sm w-100" onClick={clearFilters}>Effacer</button>
+            <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
+                <h1 className="mb-0">Le calendrier des matchs</h1>
+                <div className="d-flex gap-2">
+                    <button className="btn btn-outline-dark" onClick={() => setShowFilterPopUp(true)}>Filter</button>
                 </div>
             </div>
+
+            <FilterPopUp
+                show={showFilterPopUp}
+                onClose={() => setShowFilterPopUp(false)}
+                teamFilter={teamFilter}
+                setTeamFilter={setTeamFilter}
+                groupFilter={groupFilter}
+                setGroupFilter={setGroupFilter}
+                dateFilter={dateFilter}
+                setDateFilter={setDateFilter}
+                onApply={() => { applyFilters(); setShowFilterPopUp(false); }}
+                onClear={() => { clearFilters(); setShowFilterPopUp(false); }}
+            />
 
             {/* Table */}
             <div className="card border-0 shadow-sm mb-2">
