@@ -1,0 +1,196 @@
+.match-calendar-container {
+  max-width: 1920px;
+}
+
+.page-title {
+  font-weight: 900 !important;
+  color: #1A1A1A;
+  letter-spacing: -0.5px;
+}
+
+.glass-button {
+  background: rgba(0, 0, 0, 0.088) !important;
+  backdrop-filter: blur(12px) !important;
+  color: #0F1B2A !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  border-radius: 12px !important;
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+}
+
+.calendar-card {
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important;
+  border: none !important;
+}
+
+.match-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.logo-cell {
+  background: #0F1B2A !important;
+  color: white !important;
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 10 !important;
+  padding: 16px !important;
+}
+
+.fifa-logo {
+  height: 75px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.date-cell {
+  background: linear-gradient(135deg, #ffefba, #FFD54F) !important;
+  color: #1A1A1A !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  text-align: center !important;
+  padding: 16px 8px !important;
+}
+
+.date-header {
+  line-height: 1.2;
+}
+
+.date-day {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.date-month {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.date-weekday {
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stadium-cell {
+  background: #F8F9FA !important;
+  font-weight: bold !important;
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 10 !important;
+  padding: 16px !important;
+  min-width: 180px;
+}
+
+.stadium-name {
+  font-size: 1rem;
+  color: #1A1A1A;
+}
+
+.stadium-city {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.match-cell {
+  padding: 8px !important;
+  vertical-align: top;
+}
+
+.matches-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.match-card {
+  background: var(--match-color);
+  color: white;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.match-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+  filter: brightness(1.15);
+}
+
+.match-color-1 { background: #1976D2; }
+.match-color-2 { background: #ffa10a; }
+.match-color-3 { background: #3bb03f; }
+.match-color-4 { background: #78909C; }
+.match-color-5 { background: #9C27B0; }
+.match-color-6 { background: #ff4d16; }
+.match-color-7 { background: #00BCD4; }
+.match-color-8 { background: #7bbd2f; }
+
+.match-time {
+  font-weight: 700;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.match-teams {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+.team-flag {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.team-code {
+  font-weight: 700;
+}
+
+.vs {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.empty-cell {
+  text-align: center;
+  color: #9E9E9E;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .match-calendar-container { padding: 16px; }
+  .date-day { font-size: 1.5rem; }
+  .stadium-cell { min-width: 140px; }
+}
+
+
+.table-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}

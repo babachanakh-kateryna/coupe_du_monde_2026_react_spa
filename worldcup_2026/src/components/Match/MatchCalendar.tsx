@@ -3,8 +3,10 @@ import { MatchService } from '../../api/services/MatchService';
 import type { MatchAvailability } from '../../api/types/Match';
 import fifaLogo from '../../assets/fifa-world-cup-2026-logo.png';
 import ToastNotification from '../Common/ToastNotification';
-import './PageMatchs.css';
+import './MatchCalendar.css';
 import FilterPopUp from './FilterPopUp';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell, Avatar } from '@mui/material';
 
 interface CellMatch {
     match: MatchAvailability;
@@ -142,22 +144,6 @@ function MatchCalendar() {
         );
     };
 
-    const getMatchColor = (match: MatchAvailability) => {
-        const group = match.homeTeam.groupId;
-        const colors: Record<number, string> = {
-            1: 'bg-danger',
-            2: 'bg-warning',
-            3: 'bg-success',
-            4: 'bg-info',
-            5: 'bg-primary',
-            6: 'bg-secondary',
-            7: 'bg-dark',
-            8: 'bg-success',
-        };
-        return colors[group] || 'bg-primary';
-    };
-
-
     if (loading) {
         return <div className="text-center py-5">Chargement...</div>;
     }
@@ -168,14 +154,14 @@ function MatchCalendar() {
 
 
     return (
-        
-        <div className="container-fluid">
-            <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
-                <h1 className="mb-0">Le calendrier des matchs</h1>
-                <div className="d-flex gap-2">
-                    <button className="btn btn-outline-dark" onClick={() => setShowFilterPopUp(true)}>Filter</button>
-                </div>
-            </div>
+
+        <Box className="match-calendar-container ms-5 me-5 mb-5">
+            <Box className="d-flex justify-content-between align-items-center mb-4 mt-4">
+                <Typography variant="h3" className="page-title">Le calendrier des matchs</Typography>
+                <Button className="glass-button" startIcon={<FilterListIcon />} 
+                    onClick={() => setShowFilterPopUp(true)}>Filtrer</Button>
+            </Box>
+
 
             <FilterPopUp
                 show={showFilterPopUp}
@@ -190,68 +176,63 @@ function MatchCalendar() {
                 onClear={() => { clearFilters(); setShowFilterPopUp(false); }}
             />
 
-            {/* Table */}
-            <div className="card border-0 shadow-sm mb-2">
-                <div className="card-body p-0">
-                    <div className="table-responsive">
-                        <table className="table table-sm table-bordered mb-0 align-middle">
 
-                            <thead className="bg-dark text-white">
-                                <tr>
-                                    <th className="text-start sticky-left bg-dark p-3">
-                                        <img src={fifaLogo} alt="FIFA World Cup 2026" className="img-fluid table-logo-img"/>
-                                    </th>
-                                    
-                                    {currentDates.map(date => (
-                                        <th key={date} className="text-center bg-warning text-dark">
-                                            {formatDateHeader(date)}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
+            <Card className="calendar-card">
+                <div className="table-scroll-container no-scrollbar">
 
-                            <tbody>
-                                {currentStadiums.map(stadium => (
-                                    <tr key={stadium.id}>
+                    <Table stickyHeader className="match-table">
 
-                                        <td className="text-start fw-semibold sticky-left bg-light">
-                                            <div>{stadium.name}</div>
-                                            <div className="text-muted small">{stadium.city}</div>
-                                        </td>
-
-                                        {currentDates.map(date => {
-                                            const cellMatches = currentMatchesByStadiumAndDate.get(stadium.id)?.get(date) || [];
-                                            return (
-
-                                                <td key={date} className="p-1">
-                                                    {cellMatches.length > 0 ? (
-                                                        <div className="d-flex flex-column gap-1">
-                                                            {cellMatches.map((cm, idx) => (
-
-                                                                <div key={idx} className={`badge ${getMatchColor(cm.match)} text-white text-start p-2 table-badge-small`}>
-
-                                                                    <div className="fw-bold">{cm.time}</div>
-                                                                    <div>{cm.match.homeTeam.code} vs {cm.match.awayTeam.code}</div>
-
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    ) : (<div className="text-center text-muted table-empty-cell">—</div>)}
-                                                </td>
-
-                                            );
-                                        })}
-                                    </tr>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className="logo-cell"><img src={fifaLogo} alt="FIFA" className="fifa-logo" /></TableCell>
+                                
+                                {currentDates.map(date => (
+                                    <TableCell key={date} className="date-cell">{formatDateHeader(date)}</TableCell>
                                 ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </TableRow>
+                        </TableHead>
 
-            {toast && (<ToastNotification 
-                type={toast.type} message={toast.message}  onClose={() => setToast(null)}/>)}
-        </div>
+                        <TableBody> {currentStadiums.map(stadium => (
+
+                            <TableRow key={stadium.id} className="stadium-row">
+                                <TableCell className="stadium-cell">
+                                    <div className="stadium-name">{stadium.name}</div>
+                                    <div className="stadium-city">{stadium.city}</div>
+                                </TableCell>
+                                
+                                {currentDates.map(date => {
+                                    const cellMatches = currentMatchesByStadiumAndDate.get(stadium.id)?.get(date) || [];
+                                    return (
+                                        <TableCell key={date} className="match-cell">
+                                            {cellMatches.length > 0 ? (
+                                                <div className="matches-stack">
+                                                    {cellMatches.map((cm, idx) => (
+                                                        <div key={idx} className={`match-card match-color-${cm.match.homeTeam.groupId % 8 || 8}`}>
+                                                            <div className="match-time">{cm.time}</div>
+                                                            <div className="match-teams">
+                                                                <Avatar src={cm.match.homeTeam.flag} className="team-flag" />
+                                                                <span className="team-code">{cm.match.homeTeam.code}</span>
+                                                                <span className="vs">vs</span>
+                                                                <span className="team-code">{cm.match.awayTeam.code}</span>
+                                                                <Avatar src={cm.match.awayTeam.flag} className="team-flag" />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ) : (<div className="empty-cell">—</div> )}
+                                        </TableCell>
+                                    );
+                                })}
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </Card>
+      
+      {toast && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
+    
+    </Box>
     );
 };
 
