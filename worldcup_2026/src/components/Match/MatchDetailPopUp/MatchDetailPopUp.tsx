@@ -1,4 +1,4 @@
-import type { MatchAvailability } from '../../api/types/Match';
+import type { MatchAvailability } from '../../../api/types/Match';
 import './MatchDetailPopUp.css';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Chip, Divider, Stack } from '@mui/material';
 import StadiumIcon from '@mui/icons-material/Stadium';
@@ -39,10 +39,10 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
       <DialogTitle className="dialog-title">
         <Typography variant="h4" className="match-title">{match.homeTeam.name} vs {match.awayTeam.name}</Typography>
         <div className="d-flex justify-content-center gap-2 mt-2 mb-2">
-          <img src={new URL(`../../assets/flags/${match.homeTeam.code}.png`, import.meta.url).href}
+          <img src={new URL(`../../../assets/flags/${match.homeTeam.code}.png`, import.meta.url).href}
               alt={match.homeTeam.code} className="team-flag-detail"/>          
             <Typography variant="h3" className="teams-vs d-flex justify-content-center">VS</Typography>
-          <img src={new URL(`../../assets/flags/${match.awayTeam.code}.png`, import.meta.url).href}
+          <img src={new URL(`../../../assets/flags/${match.awayTeam.code}.png`, import.meta.url).href}
               alt={match.awayTeam.code} className="team-flag-detail"/>
         </div>
       </DialogTitle>

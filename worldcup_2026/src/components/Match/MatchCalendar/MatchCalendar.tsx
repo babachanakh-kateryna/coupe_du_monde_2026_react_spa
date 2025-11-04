@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { MatchService } from '../../api/services/MatchService';
-import type { MatchAvailability } from '../../api/types/Match';
-import MatchDetailPopUp from './MatchDetailPopUp';
-import fifaLogo from '../../assets/fifa-world-cup-2026-logo.png';
-import ToastNotification from '../Common/ToastNotification';
+import { MatchService } from '../../../api/services/MatchService';
+import type { MatchAvailability } from '../../../api/types/Match';
+import MatchDetailPopUp from '../MatchDetailPopUp/MatchDetailPopUp';
+import fifaLogo from '../../../assets/fifa-world-cup-2026-logo.png';
+import ToastNotification from '../../Common/ToastNotification';
 import './MatchCalendar.css';
-import FilterPopUp from './FilterPopUp';
+import FilterPopUp from '../FilterPopUp/FilterPopUp';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 
@@ -222,12 +222,12 @@ function MatchCalendar() {
                                                             onClick={() => openMatchDetail(cm.match)}>
                                                             <div className="match-time">{cm.time}</div>
                                                             <div className="match-teams">
-                                                                <img src={new URL(`../../assets/flags/${cm.match.homeTeam.code}.png`, import.meta.url).href}
+                                                                <img src={new URL(`../../../assets/flags/${cm.match.homeTeam.code}.png`, import.meta.url).href}
                                                                     alt={cm.match.homeTeam.code} className="team-flag" />
                                                                 <span className="team-code">{cm.match.homeTeam.code}</span>
                                                                 <span className="vs">vs</span>
                                                                 <span className="team-code">{cm.match.awayTeam.code}</span>
-                                                                <img src={new URL(`../../assets/flags/${cm.match.awayTeam.code}.png`, import.meta.url).href}
+                                                                <img src={new URL(`../../../assets/flags/${cm.match.awayTeam.code}.png`, import.meta.url).href}
                                                                     alt={cm.match.homeTeam.code} className="team-flag" />
                                                             </div>
                                                         </div>

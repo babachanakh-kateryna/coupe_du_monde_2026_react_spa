@@ -1,4 +1,4 @@
-import MatchCalendar from "./MatchCalendar";
+import MatchCalendar from "./MatchCalendar/MatchCalendar";
 
 function PageMatchs() {
   return (
