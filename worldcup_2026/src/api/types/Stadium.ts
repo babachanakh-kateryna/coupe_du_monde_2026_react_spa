@@ -8,3 +8,10 @@ export interface Stadium {
   timezone: string;
   features: string[];
 }
+
+export interface StadiumFilters {
+  country?: string;
+  city?: string;
+  minCapacity?: number;
+  maxCapacity?: number;
+}
