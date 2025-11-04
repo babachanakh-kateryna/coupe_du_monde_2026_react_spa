@@ -7,7 +7,8 @@ import ToastNotification from '../../Common/ToastNotification';
 import './MatchCalendar.css';
 import FilterPopUp from '../FilterPopUp/FilterPopUp';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { Button, Card, Typography, Box, Table, TableHead, TableBody, TableRow, TableCell, Container } from '@mui/material';
+import { Spinner } from 'react-bootstrap';
 
 interface CellMatch {
     match: MatchAvailability;
@@ -156,7 +157,14 @@ function MatchCalendar() {
     };
 
     if (loading) {
-        return <div className="text-center py-5">Chargement...</div>;
+        return (
+            <>
+                <Container className="text-center py-5">
+                    <Spinner animation="border" variant="primary" />
+                    <p className="mt-3">Chargement...</p>
+                </Container>
+            </>
+        );
     }
 
     const currentDates = dates();
@@ -166,7 +174,7 @@ function MatchCalendar() {
 
     return (
 
-        <Box className="match-calendar-container ms-5 me-5 mb-5">
+        <Box className="ms-5 me-5 mb-5">
             <Box className="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <Typography variant="h3" className="page-title">Le calendrier des matchs</Typography>
                 <Button className="glass-button" startIcon={<FilterListIcon />} 

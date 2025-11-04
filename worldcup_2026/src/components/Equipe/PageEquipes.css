@@ -1,0 +1,44 @@
+
+.continent-filter {
+    border-radius: 12px;
+    font-weight: 500;
+    width: 250px !important;
+}
+
+.team-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #F8F9FA !important;
+    border: none;
+    border-radius: 16px;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.team-flag-large {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.team-card .card-title {
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+.team-card small {
+    color: #6c757d;
+}
+
+.team-code-badge {
+    background: linear-gradient(135deg, #ffffff, #f7fafc) !important;
+    color: black !important;
+    padding: 6px 12px;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(151, 158, 165, 0.3);
+    transition: all 0.1s;
+}

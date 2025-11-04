@@ -88,7 +88,7 @@ function FilterPopUp({show,onClose,teamFilter,setTeamFilter,groupFilter,setGroup
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Filtre par groupe</Form.Label>
+                        <Form.Label>Filtre par ID de groupe</Form.Label>
                         <Form.Control type="number" min={1} placeholder="ex: 3" value={groupFilter}
                             onChange={(e) => setGroupFilter(e.target.value)} />
                     </Form.Group>
