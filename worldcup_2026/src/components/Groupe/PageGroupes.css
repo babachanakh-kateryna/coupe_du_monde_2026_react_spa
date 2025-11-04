@@ -1,0 +1,49 @@
+.group-filter {
+    border-radius: 12px;
+    font-weight: 500;
+    width: 250px !important;
+}
+
+.group-card {
+    border-radius: 20px;
+    background-color: #F8F9FA !important;
+}
+
+.group-header {
+    padding: 8px;
+    background: linear-gradient(135deg, #227fdb, #3c97e1);
+    border-radius: 16px;
+    color: white;
+}
+
+.group-letter {
+    font-size: 1.8rem !important;
+    padding: 12px 24px !important;
+}
+
+.team-item {
+    padding: 12px;
+    border-radius: 12px;
+    background: #e1f0ff;
+}
+
+.team-flag-group {
+    width: 50px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-bottom: 8px;
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #212529;
+}
+
+.team-code-small {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+    background: #1976d2 !important;
+}
