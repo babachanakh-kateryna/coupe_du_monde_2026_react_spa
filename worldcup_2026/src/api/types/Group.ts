@@ -1,9 +1,20 @@
-import type { Team } from "./Team";
-
 export interface Group {
   id: number;
   name: string;
-  teams: Team[];
+  teams: GroupTeams[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface GroupTeams {
+  id: number;
+  name: string;
+  code: string;
+  flag: string;
+  confederation: string;
+  continent: string;
+  groupId: number;
+  createdAt: string;
+  updatedAt: string;
+  flagImagePath: string;
 }

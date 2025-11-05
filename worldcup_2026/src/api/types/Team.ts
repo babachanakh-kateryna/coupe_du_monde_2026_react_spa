@@ -1,9 +1,4 @@
-// pour Filtrer par nom de groupe
-export interface TeamFilters {
-  group?: string;
-}
-
-export interface GroupTeam {
+export interface TeamGroup {
   id: number;
   name: string;
   createdAt: string;
@@ -18,7 +13,7 @@ export interface Team {
   confederation: string;
   continent: string;
   groupId: number;
-  group: GroupTeam;
+  group: TeamGroup;
   createdAt: string;
   updatedAt: string;
   flagImagePath: string;

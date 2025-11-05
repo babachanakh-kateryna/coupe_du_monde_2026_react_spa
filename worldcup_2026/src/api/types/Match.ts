@@ -1,13 +1,4 @@
-import type { Stadium } from './Stadium';
-import type { Team } from './Team';
 import type { TicketCategory } from './Tickets';
-
-export interface MatchesListResponse {
-  matches: Match[];
-  total: number;
-  page: number;
-  limit: number;
-}
 
 export type MatchStatus = 'upcoming' | 'ongoing' | 'finished' | 'scheduled';
 export type MatchStage = 'group_stage' | 'group' | 'round_of_16' | 'quarter_final' | 'semi_final' | 'final';
@@ -15,16 +6,44 @@ export type MatchStage = 'group_stage' | 'group' | 'round_of_16' | 'quarter_fina
 export interface Match {
   id: number;
   homeTeamId: number;
+  homeTeam: MatchTeam;
   awayTeamId: number;
+  awayTeam: MatchTeam;
   stadiumId: number;
+  stadium: MatchStadium;
   status: MatchStatus;
   stage: MatchStage;
   date: string;
   availableSeats: number;
   priceMultiplier: number | string;
-  homeTeam: Team;
-  awayTeam: Team;
-  stadium: Stadium;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MatchTeam {
+  id: number;
+  name: string;
+  code: string;
+  flag: string;
+  confederation: string;
+  continent: string;
+  groupId: number;
+  createdAt: string;
+  updatedAt: string;
+  flagImagePath: string;
+}
+
+export interface MatchStadium {
+  id: number;
+  name: string;
+  city: string;
+  country: string;
+  countryCode: string;
+  capacity: number;
+  timezone: string;
+  features: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CategoryAvailability {

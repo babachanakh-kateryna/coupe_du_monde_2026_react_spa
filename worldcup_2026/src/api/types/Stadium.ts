@@ -7,6 +7,8 @@ export interface Stadium {
   capacity: number;
   timezone: string;
   features: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface StadiumFilters {
