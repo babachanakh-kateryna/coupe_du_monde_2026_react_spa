@@ -1,5 +1,7 @@
 import AppRoutes from './AppRoutes';
 import NavBarWorldCup from './components/NavbarWorldCup';
+import './App.css';
+
 
 function App() {
   return (
