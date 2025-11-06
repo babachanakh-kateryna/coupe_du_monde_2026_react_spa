@@ -1,6 +1,14 @@
 export type TicketCategory = 'CATEGORY_1' | 'CATEGORY_2' | 'CATEGORY_3' | 'HOSPITALITY';
 export type TicketStatus = 'pending_payment' | 'confirmed' | 'used' | 'expired' | 'cancelled';
 
+export interface MatchInfo {
+    id: number;
+    homeTeam: string;
+    awayTeam: string;
+    matchDate: string;
+    stadium: string;
+}
+
 export interface Ticket {
     id: string;
     userId: string;
@@ -8,18 +16,12 @@ export interface Ticket {
     category: TicketCategory;
     price: number;
     status: TicketStatus;
-    seatNumber: string;
-    qrCode: string;
-    expiresAt: string;
-    paymentDate?: string;
-    validatedAt?: string;
-    match: {
-        id: number;
-        homeTeam: string;
-        awayTeam: string;
-        matchDate: string;
-        stadium: string;
-    };
+    seatNumber: string | null;
+    qrCode: string | null;
+    expiresAt: string | null;
+    paymentDate: string | null;
+    validatedAt?: string | null;
+    match?: MatchInfo;
 }
 
 export interface TicketAddRequest {
@@ -34,7 +36,6 @@ export interface TicketValidateRequest {
 
 export interface TicketCartResponse {
     tickets: Ticket[];
-    count: number;
     totalPrice: number;
     expiresAt: string;
 }
