@@ -37,9 +37,6 @@ function MatchCalendar() {
             setLoading(true);
             try {
                 const data = await MatchService.getAllMatchesWithAvailability();
-                console.log(data)
-                const data1 = await MatchService.getMatches();
-                console.log(data1)
                 setAllMatches(data);
                 setFilteredMatches(data);
             } catch (err) {
@@ -200,25 +197,20 @@ function MatchCalendar() {
                 <div className="table-scroll-container no-scrollbar">
 
                     <Table stickyHeader className="match-table">
-
                         <TableHead>
                             <TableRow>
                                 <TableCell className="logo-cell"><img src={fifaLogo} alt="FIFA" className="fifa-logo" /></TableCell>
-                                
                                 {currentDates.map(date => (
                                     <TableCell key={date} className="date-cell">{formatDateHeader(date)}</TableCell>
                                 ))}
                             </TableRow>
                         </TableHead>
-
-                        <TableBody> {currentStadiums.map(stadium => (
-
+                        <TableBody>{currentStadiums.map(stadium => (
                             <TableRow key={stadium.id} className="stadium-row">
                                 <TableCell className="stadium-cell">
                                     <div className="stadium-name">{stadium.name}</div>
                                     <div className="stadium-city">{stadium.city}</div>
                                 </TableCell>
-                                
                                 {currentDates.map(date => {
                                     const cellMatches = currentMatchesByStadiumAndDate.get(stadium.id)?.get(date) || [];
                                     return (
