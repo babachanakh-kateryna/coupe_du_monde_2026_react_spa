@@ -6,3 +6,52 @@
   align-items: center !important;
   justify-content: center !important;
 }
+
+.page-title {
+  font-weight: 900 !important;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.bg-darkblue {
+  background-color: #1a1a1a;
+}
+
+/** Page CONNEXION**/
+.connexion-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.connexion-paper {
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.connexion-title {
+  font-weight: 900 !important;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.connexion-tabs .MuiTab-root {
+  text-transform: none;
+  font-weight: 500;
+}
+
+.connexion-tabs .Mui-selected {
+  color: #1a1a1a !important;
+}
+
+.connexion-tabs .MuiTabs-indicator {
+  background-color: #1a1a1a;
+}
+
+.connexion-button {
+  margin-top: 1.5rem;
+  background-color: #1a1a1a !important;
+}
+
+.connexion-button:hover {
+  background-color: #333 !important;
+}

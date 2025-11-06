@@ -58,13 +58,13 @@ function Connexion() {
 
     return (
         
-        <Container maxWidth="sm" className="py-5 back-connexion">
-            <Paper elevation={10} className="p-4">
+        <Container maxWidth="sm" className="connexion-container">
+            <Paper elevation={8} className="connexion-paper">
                 <Box className="text-center mb-4">
-                    <Typography variant="h4" className="mt-3 fw-bold text-primary">Coupe du Monde 2026</Typography>
+                    <Typography variant="h4" className="connexion-title">Coupe du Monde 2026</Typography>
                 </Box>
 
-                <Tabs value={tab} onChange={(_, v) => setTab(v)} centered className="mb-4">
+                <Tabs value={tab} onChange={(_, v) => setTab(v)} centered className="connexion-tabs">
                     <Tab label="Se connecter" />
                     <Tab label="Créer un compte" />
                 </Tabs>
@@ -73,7 +73,7 @@ function Connexion() {
                 <form onSubmit={handleLogin}>
                     <TextField fullWidth label="Email" type="email" margin="normal" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
                     <TextField fullWidth label="Mot de passe" type="password" margin="normal" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
-                    <Button type="submit" fullWidth variant="contained" size="large" className="mt-4" disabled={loading}>
+                    <Button type="submit" fullWidth variant="contained" size="large" className="connexion-button mt-2" disabled={loading}>
                         {loading ? <CircularProgress size={24} /> : 'Se connecter'}
                     </Button>
                 </form>
@@ -84,7 +84,7 @@ function Connexion() {
                     <TextField fullWidth label="Email" type="email" margin="normal" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <TextField fullWidth label="Mot de passe" type="password" margin="normal" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <TextField fullWidth label="Date de naissance" type="date" InputLabelProps={{ shrink: true }} margin="normal" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} required />
-                    <Button type="submit" fullWidth variant="contained" size="large" color="success" className="mt-4" disabled={loading}>
+                    <Button type="submit" fullWidth variant="contained" size="large" color="success" className="connexion-button mt-2"  disabled={loading}>
                         {loading ? <CircularProgress size={24} /> : 'Créer mon compte'}
                     </Button>
                 </form>

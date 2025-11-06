@@ -9,7 +9,7 @@ function NavBarWorldCup() {
   const { state, logout } = useApp();
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+    <Navbar className="bg-darkblue" variant="dark" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand as={NavLink} to="/" className="fw-bold">Coupe du Monde 2026</Navbar.Brand>
         <Navbar.Toggle />
