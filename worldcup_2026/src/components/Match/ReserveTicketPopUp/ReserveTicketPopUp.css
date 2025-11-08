@@ -1,0 +1,24 @@
+.reserve-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 0px 24px 20px;
+}
+
+.reserve-dialog-actions .cancel-button {
+    color: #1a1a1a !important;
+}
+
+.reserve-dialog-actions .cancel-button:hover {
+    background-color: rgba(26, 26, 26, 0.04);
+}
+
+.reserve-dialog-actions .add-button {
+    background-color: #1a1a1a !important;
+}
+
+.reserve-dialog-actions .add-button:disabled {
+    background-color: #bdbdbd !important;
+    color: #8e8e8e !important;
+    box-shadow: none;
+}

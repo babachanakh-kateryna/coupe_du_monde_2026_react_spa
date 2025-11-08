@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Container, Paper, Tabs, Tab, Box, TextField, Button, CircularProgress, Typography } from '@mui/material';
+import { Container, Paper, Tabs, Tab, Box, TextField, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from './AuthContext';
 import { AuthService } from '../api/services/AuthService';
 import ToastNotification from './Common/ToastNotification';
-import { useApp } from './AuthContext';
 
 function Connexion() {
 
     const [tab, setTab] = useState(0);
-    const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
     const navigate = useNavigate();
     const { login, refreshCart } = useApp();
@@ -26,7 +25,6 @@ function Connexion() {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
         try {
             await AuthService.signin(loginEmail, loginPassword);
             await login();
@@ -35,14 +33,11 @@ function Connexion() {
             navigate('/', { replace: true });
         } catch {
             setToast({ type: 'error', message: 'Identifiants incorrects' });
-        } finally {
-            setLoading(false);
         }
     };
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
         try {
             await AuthService.signup({ firstname, lastname, email, password, birthDate });
             await login();
@@ -51,8 +46,6 @@ function Connexion() {
             navigate('/', { replace: true });
         } catch (err: any) {
             setToast({ type: 'error', message: err.response?.data?.message || 'Erreur' });
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -73,9 +66,7 @@ function Connexion() {
                 <form onSubmit={handleLogin}>
                     <TextField fullWidth label="Email" type="email" margin="normal" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
                     <TextField fullWidth label="Mot de passe" type="password" margin="normal" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
-                    <Button type="submit" fullWidth variant="contained" size="large" className="connexion-button mt-2" disabled={loading}>
-                        {loading ? <CircularProgress size={24} /> : 'Se connecter'}
-                    </Button>
+                    <Button type="submit" fullWidth variant="contained" size="large" className="connexion-button mt-2">Se connecter</Button>
                 </form>
                 ) : (
                 <form onSubmit={handleSignup}>
@@ -84,9 +75,7 @@ function Connexion() {
                     <TextField fullWidth label="Email" type="email" margin="normal" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <TextField fullWidth label="Mot de passe" type="password" margin="normal" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <TextField fullWidth label="Date de naissance" type="date" InputLabelProps={{ shrink: true }} margin="normal" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} required />
-                    <Button type="submit" fullWidth variant="contained" size="large" color="success" className="connexion-button mt-2"  disabled={loading}>
-                        {loading ? <CircularProgress size={24} /> : 'Créer mon compte'}
-                    </Button>
+                    <Button type="submit" fullWidth variant="contained" size="large" color="success" className="connexion-button mt-2">Créer mon compte</Button>
                 </form>
                 )}
             </Paper>

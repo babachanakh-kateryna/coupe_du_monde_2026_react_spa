@@ -5,6 +5,10 @@ import StadiumIcon from '@mui/icons-material/Stadium';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import { ReserveTicketPopUp } from '../ReserveTicketPopUp/ReserveTicketPopUp';
+import { useState } from 'react';
+import { useApp } from '../../AuthContext';
+import ToastNotification from '../../Common/ToastNotification';
 
 interface MatchDetailPopUpProps {
   match: MatchAvailability | null;
@@ -13,6 +17,12 @@ interface MatchDetailPopUpProps {
 }
 
 function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
+  const [showReserve, setShowReserve] = useState(false);
+  const [toast, setToast] = useState<{ open: boolean; message: string; type: 'success' | 'error' | 'warning' | 'info'}>({
+    open: false, message: '', type: 'success'
+  });
+  const { state } = useApp();
+
   if (!match) return null;
 
   const formatDate = (dateStr: string) => {
@@ -33,15 +43,35 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
     }
   };
 
+  const handleReserveClick = () => {
+    if (!state.isAuthenticated) {
+      setToast({
+        open: true,
+        message: 'Vous devez être connecté pour réserver des billets.',
+        type: 'warning'
+      });
+      return;
+    }
+    setShowReserve(true);
+  };
+
+  const handleSuccess = async (count: number) => {
+    setToast({
+      open: true,
+      message: `${count} billet${count > 1 ? 's' : ''} ajouté${count > 1 ? 's' : ''} au panier !`,
+      type: 'success'
+    });
+  };
+
   return (
     <Dialog open={show} onClose={onHide} className="match-detail-dialog" maxWidth="md">
 
       <DialogTitle className="dialog-title">
-        <Typography variant="h4" className="match-title">{match.homeTeam.name} vs {match.awayTeam.name}</Typography>
-        <div className="d-flex justify-content-center gap-2 mt-2 mb-2">
+        <div className="match-title">{match.homeTeam.name} vs {match.awayTeam.name}</div>
+        <div className="d-flex justify-content-center gap-2 mb-2">
           <img src={new URL(`../../../assets/flags/${match.homeTeam.code}.png`, import.meta.url).href}
               alt={match.homeTeam.code} className="team-flag-detail"/>          
-            <Typography variant="h3" className="teams-vs d-flex justify-content-center">VS</Typography>
+            <span className="teams-vs">VS</span>
           <img src={new URL(`../../../assets/flags/${match.awayTeam.code}.png`, import.meta.url).href}
               alt={match.awayTeam.code} className="team-flag-detail"/>
         </div>
@@ -119,10 +149,28 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
       </DialogContent>
 
       <DialogActions className="d-flex justify-content-center mt-2">
-        <Button className="reserve-button">
-          Réserver Maintenant
-        </Button>
+        <Button className="reserve-button" onClick={handleReserveClick}>Réserver Maintenant</Button>
       </DialogActions>
+
+      {/* Reserve Popup */}
+      {showReserve && match && (
+        <ReserveTicketPopUp
+          match={match}
+          open={showReserve}
+          onClose={() => setShowReserve(false)}
+          onSuccess={handleSuccess}
+        />
+      )}
+
+      {/* Toast */}
+      {toast.open && (
+        <ToastNotification
+          type={toast.type}
+          message={toast.message}
+          onClose={() => setToast({ ...toast, open: false })}
+        />
+      )}
+      
     </Dialog>
   );
 };
