@@ -21,7 +21,7 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
   const [toast, setToast] = useState<{ open: boolean; message: string; type: 'success' | 'error' | 'warning' | 'info'}>({
     open: false, message: '', type: 'success'
   });
-  const { state } = useApp();
+  const { state, refreshCart } = useApp();
 
   if (!match) return null;
 
@@ -159,6 +159,7 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
           open={showReserve}
           onClose={() => setShowReserve(false)}
           onSuccess={handleSuccess}
+          refreshCart={refreshCart}
         />
       )}
 
@@ -170,7 +171,7 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
           onClose={() => setToast({ ...toast, open: false })}
         />
       )}
-      
+
     </Dialog>
   );
 };

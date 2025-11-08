@@ -11,9 +11,10 @@ interface TicketReserveDialogProps {
   open: boolean;
   onClose: () => void;
   onSuccess: (added: number) => void;
+  refreshCart: () => Promise<void>;
 }
 
-export function ReserveTicketPopUp({match,open,onClose,onSuccess}: TicketReserveDialogProps) {
+export function ReserveTicketPopUp({match,open,onClose,onSuccess,refreshCart}: TicketReserveDialogProps) {
   
   const [category, setCategory] = useState<TicketCategory | ''>('');
   const [quantity, setQuantity] = useState(1);
@@ -35,6 +36,7 @@ export function ReserveTicketPopUp({match,open,onClose,onSuccess}: TicketReserve
         quantity
       });
 
+      await refreshCart();
       onSuccess(quantity);
       onClose();
     } catch (err) {
