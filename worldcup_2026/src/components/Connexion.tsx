@@ -50,6 +50,7 @@ function Connexion() {
     };
 
     return (
+        <Box className="dark-page">
         
         <Container maxWidth="sm" className="connexion-container">
             <Paper elevation={8} className="connexion-paper">
@@ -82,6 +83,7 @@ function Connexion() {
 
             {toast && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
         </Container>
+        </Box>
     );
 }
 

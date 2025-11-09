@@ -55,3 +55,9 @@
 .connexion-button:hover {
   background-color: #333 !important;
 }
+
+.dark-page {
+  min-height: 100vh;
+  background:#1a1a1a;
+  padding: 2rem 0;
+}
