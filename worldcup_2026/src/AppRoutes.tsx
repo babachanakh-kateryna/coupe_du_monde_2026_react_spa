@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Accueil from "./components/Accueil.tsx";
+import Accueil from "./components/Accueil/Accueil.tsx";
 import PageEquipes from "./components/Equipe/PageEquipes.tsx";
 import PageGroupes from "./components/Groupe/PageGroupes.tsx";
 import PagePanier from "./components/Panier/PagePanier.tsx";

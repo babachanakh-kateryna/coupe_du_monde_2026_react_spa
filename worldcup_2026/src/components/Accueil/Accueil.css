@@ -1,0 +1,172 @@
+.accueil-wrapper {
+  background: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.accueil-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+
+.accueil-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('/world-cup-bg.jpg') center/cover no-repeat;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.accueil-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+}
+
+.accueil-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin: 0 0 1rem;
+  background: linear-gradient(90deg, #ffffff, #a0d8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.accueil-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0 0 2rem;
+  color: #cccccc;
+}
+
+.accueil-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: white;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 1rem 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.accueil-cta:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.accueil-features {
+  padding: 5rem 1rem;
+  background-color: #141414;
+}
+
+.accueil-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.accueil-feature {
+  background-color: #1f1f1f;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.accueil-feature:hover {
+  transform: translateY(-8px);
+}
+
+.accueil-feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(45deg, #1976d2, #42a5f5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.accueil-feature h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+  color: #ffffff;
+}
+
+.accueil-feature p {
+  color: #bbbbbb;
+  line-height: 1.6;
+}
+
+.accueil-stats {
+  padding: 4rem 1rem;
+  background-color: #1a1a1a;
+  text-align: center;
+}
+
+.accueil-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.accueil-stat {
+  min-width: 150px;
+}
+
+.accueil-stat-number {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #1976d2;
+  margin: 0;
+}
+
+.accueil-stat-label {
+  font-size: 1rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .accueil-title {
+    font-size: 2.5rem;
+  }
+  .accueil-subtitle {
+    font-size: 1.2rem;
+  }
+  .accueil-cta {
+    font-size: 1.1rem;
+    padding: 0.875rem 2rem;
+  }
+}
