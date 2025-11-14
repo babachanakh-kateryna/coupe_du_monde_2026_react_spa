@@ -5,7 +5,7 @@ import type { AuthFiltres, User } from '../types/Auth';
 export class AuthService {
 
     static async signup(filters?: AuthFiltres): Promise<User> {
-        const response = await api.post('/auth/signup', { params: filters });
+        const response = await api.post('/auth/signup', filters);
         return response.data.data.user;
     }
 
