@@ -51,13 +51,15 @@ function PagePanier() {
 
     const payNow = async () => {
         try {
-            await TicketService.payAllPendingTickets();
-            setToast({ type: 'success', message: 'Paiement réussi ! Redirection...' });
-            await loadCart();
+            const result = await TicketService.payAllPendingTickets();
+            setToast({type: 'success', message: `Paiement réussi ! ${result.count} billet(s) confirmé(s).`});
             await refreshCart();
-            setTimeout(() => navigate('/mes-tickets'), 1500);
-        } catch {
-            setToast({ type: 'error', message: 'Échec du paiement' });
+            
+            setTimeout(() => {
+                navigate('/profil');
+            }, 2000);
+        } catch (err) {
+            setToast({type: 'error', message: 'Échec du paiement. Veuillez réessayer.'});
         }
     };
 

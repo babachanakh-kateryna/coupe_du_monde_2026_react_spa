@@ -4,6 +4,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { useApp } from './AuthContext';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 function NavBarWorldCup() {
   const { state, logout } = useApp();
@@ -32,10 +34,15 @@ function NavBarWorldCup() {
             </Nav.Link>
 
             {state.isAuthenticated ? (
-              <Nav.Link onClick={logout} className="d-flex align-items-center gap-2 text-white" style={{ cursor: 'pointer' }}>
-                <LogoutIcon />
-                <span className="d-none d-lg-inline">Déconnexion</span>
-              </Nav.Link>
+              <>
+                <Nav.Link as={NavLink} to="/profil" className="d-flex align-items-center gap-2">
+                    <PersonIcon />
+                </Nav.Link>
+                <Nav.Link onClick={logout} className="d-flex align-items-center gap-2 text-white" style={{ cursor: 'pointer' }}>
+                  <LogoutIcon />
+                  <span className="d-none d-lg-inline">Déconnexion</span>
+                </Nav.Link>
+              </>
             ) : (
               <Nav.Link as={NavLink} to="/connexion" className="d-flex align-items-center gap-2">
                 <LoginIcon />

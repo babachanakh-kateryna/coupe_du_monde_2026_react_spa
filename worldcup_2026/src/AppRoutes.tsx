@@ -5,6 +5,7 @@ import PageGroupes from "./components/Groupe/PageGroupes.tsx";
 import PagePanier from "./components/Panier/PagePanier.tsx";
 import Connexion from "./components/Connexion.tsx";
 import PageMatchs from "./components/Match/PageMatchs";
+import PageProfil from "./components/PageProfil/PageProfil.tsx";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/groupes" element={<PageGroupes />} />
       <Route path="/panier" element={<PagePanier />} />
       <Route path="/connexion" element={<Connexion />} />
+      <Route path="/profil" element={<PageProfil />} />
     </Routes>
   );
 }
