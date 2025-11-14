@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import { useApp } from './AuthContext';
 import PersonIcon from '@mui/icons-material/Person';
+import { useApp } from './hooks/AuthContext';
 
 
 function NavBarWorldCup() {

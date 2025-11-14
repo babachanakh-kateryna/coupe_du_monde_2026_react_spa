@@ -7,8 +7,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import { ReserveTicketPopUp } from '../ReserveTicketPopUp/ReserveTicketPopUp';
 import { useState } from 'react';
-import { useApp } from '../../AuthContext';
 import ToastNotification from '../../Common/ToastNotification';
+import { useApp } from '../../hooks/AuthContext';
 
 interface MatchDetailPopUpProps {
   match: MatchAvailability | null;

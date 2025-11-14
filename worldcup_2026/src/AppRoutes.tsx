@@ -5,7 +5,7 @@ import PageGroupes from "./components/Groupe/PageGroupes.tsx";
 import PagePanier from "./components/Panier/PagePanier.tsx";
 import Connexion from "./components/Connexion.tsx";
 import PageMatchs from "./components/Match/PageMatchs";
-import PageProfil from "./components/PageProfil/PageProfil.tsx";
+import PageProfil from "./components/Profil/PageProfil.tsx";
 
 export default function AppRoutes() {
   return (

@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
-import { AuthService } from '../api/services/AuthService';
-import { TicketService } from '../api/services/TicketService';
+import { AuthService } from '../../api/services/AuthService';
+import { TicketService } from '../../api/services/TicketService';
 
 type User = {
     firstname: string;

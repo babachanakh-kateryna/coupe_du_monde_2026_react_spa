@@ -6,10 +6,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../AuthContext';
 import { TicketService } from '../../api/services/TicketService';
 import ToastNotification from '../Common/ToastNotification';
 import "./PagePanier.css"
+import { useApp } from '../hooks/AuthContext';
 
 function PagePanier() {
 
