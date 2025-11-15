@@ -56,7 +56,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
             const user = await AuthService.me();
             dispatch({ type: 'SET_AUTH', payload: { isAuthenticated: true, user } });
             await refreshCart();
-        } catch {
+        } catch (err:any){
             dispatch({ type: 'LOGOUT' });
         }
     };
@@ -67,12 +67,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
     };
 
     const LOCAL_STORAGE_KEY = 'worldcup2026_cart';
-    
+
     const refreshCart = async () => {
         try {
             const cart = await TicketService.getPendingTickets();
             dispatch({ type: 'UPDATE_CART', payload: cart.tickets.length });
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cart)); // Persistance
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cart));
         } catch {
             const local = localStorage.getItem(LOCAL_STORAGE_KEY);
             if (local) {

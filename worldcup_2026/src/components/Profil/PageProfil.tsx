@@ -11,6 +11,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Box } from '@mui/material';
+import { QRCodeSVG } from 'qrcode.react';
 
 type TabType = 'pending' | 'confirmed' | 'used';
 
@@ -132,11 +133,18 @@ export default function PageProfil() {
                                     </div>
                                 </div>
 
-                                {ticket.qrCode && (
+                                {ticket.qrCode ? (
                                     <div className="qr-section">
-                                        <img src={ticket.qrCode} alt="QR Code" className="qr-code" />
+                                        <QRCodeSVG
+                                            value={ticket.qrCode}
+                                            size={128}
+                                            level="M"
+                                            includeMargin={true}
+                                        />
                                         <p>Présentez ce QR à l'entrée</p>
                                     </div>
+                                    ) : (
+                                    <p className="text-muted">QR code non disponible</p>
                                 )}
                             </div>
                             ))
