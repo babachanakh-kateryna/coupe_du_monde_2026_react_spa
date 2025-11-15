@@ -36,8 +36,9 @@
 
 .stadium-icon { color: #1976D2; }
 .date-icon { color: #4CAF50; }
-.time-icon { color: #FF9800; }
+.time-icon { color: #ff5e00; }
 .ticket-icon { color: #9C27B0; }
+.weather-icon { color:rgb(255, 196, 0); }
 
 
 .ticket-category {

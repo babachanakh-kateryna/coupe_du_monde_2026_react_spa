@@ -6,9 +6,12 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import { ReserveTicketPopUp } from '../ReserveTicketPopUp/ReserveTicketPopUp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToastNotification from '../../Common/ToastNotification';
 import { useApp } from '../../hooks/AuthContext';
+import type { WeatherData } from '../../../api/types/Weather';
+import { WeatherService } from '../../../api/services/WeatherService';
+import WbSunnyIcon from '@mui/icons-material/WbSunny'; // Icône météo
 
 interface MatchDetailPopUpProps {
   match: MatchAvailability | null;
@@ -22,6 +25,26 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
     open: false, message: '', type: 'success'
   });
   const { state, refreshCart } = useApp();
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(true);
+  const [weatherError, setWeatherError] = useState(false);
+
+  useEffect(() => {
+    if (match) {
+      const city = match.stadium.city;
+      const country = match.stadium.countryCode;
+      WeatherService.getWeatherByCity(city, country)
+        .then(data => {
+          setWeather(data);
+        })
+        .catch(_ => {
+          setWeatherError(true);
+        })
+        .finally(() => {
+          setWeatherLoading(false);
+        });
+    }
+  }, [match]);
 
   if (!match) return null;
 
@@ -88,6 +111,23 @@ function MatchDetailPopUp({ match, show, onHide }: MatchDetailPopUpProps) {
               <Typography variant="h6" fontWeight="bold"> {match.stadium.name}</Typography>
               <Typography variant="body2" color="text.secondary">{match.stadium.city}, {match.stadium.country}</Typography>
             </div>
+          </div>
+
+          {/* Weather */}
+          <div className="d-flex align-items-center gap-3">
+            {weatherLoading ? (
+              <Typography variant="body2" color="text.secondary">Météo prévue</Typography>
+            ) : weatherError || !weather ? (
+              <Typography variant="body2" color="text.secondary">Météo non disponible</Typography>
+            ) : (
+              <>
+                <WbSunnyIcon className="info-icon weather-icon"/>
+                <div>
+                  <Typography variant="body2" color="text.secondary">Météo prévue</Typography>
+                  <Typography variant="h6" fontWeight="bold">{weather.temp.toFixed(1)} °C — {weather.description}</Typography>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Date & Time */}
