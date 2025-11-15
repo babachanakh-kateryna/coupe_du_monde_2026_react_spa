@@ -66,15 +66,23 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
         dispatch({ type: 'LOGOUT' });
     };
 
+    const LOCAL_STORAGE_KEY = 'worldcup2026_cart';
+    
     const refreshCart = async () => {
         try {
             const cart = await TicketService.getPendingTickets();
             dispatch({ type: 'UPDATE_CART', payload: cart.tickets.length });
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cart)); // Persistance
         } catch {
-            dispatch({ type: 'UPDATE_CART', payload: 0 });
+            const local = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (local) {
+                const cart = JSON.parse(local);
+                dispatch({ type: 'UPDATE_CART', payload: cart.tickets.length });
+            } else {
+                dispatch({ type: 'UPDATE_CART', payload: 0 });
+            }
         }
     };
-
     useEffect(() => {
         login();
     }, []);

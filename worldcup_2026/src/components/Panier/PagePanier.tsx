@@ -10,12 +10,15 @@ import { TicketService } from '../../api/services/TicketService';
 import ToastNotification from '../Common/ToastNotification';
 import "./PagePanier.css"
 import { useApp } from '../hooks/AuthContext';
+import type { TicketCartResponse } from '../../api/types/Tickets';
+
+const LOCAL_STORAGE_KEY = 'worldcup2026_cart';
 
 function PagePanier() {
 
     const [cart, setCart] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+    const [toast, setToast] = useState<{ type: 'success' | 'error' | 'warning' | 'info'; message: string } | null>(null);
     const { state, refreshCart } = useApp();
     const navigate = useNavigate();
 
@@ -23,16 +26,42 @@ function PagePanier() {
         if (state.isAuthenticated) {
             loadCart();
         } else {
+            const local = loadLocalCart();
+            if (local) {
+                setCart(local);
+            }
             setLoading(false);
         }
     }, [state.isAuthenticated]);
+
+    const loadLocalCart = (): TicketCartResponse | null => {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    };
+
+    const saveLocalCart = (cartData: TicketCartResponse) => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cartData));
+    };
+
+    const clearLocalCart = () => {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+    };
 
     const loadCart = async () => {
         try {
             const data = await TicketService.getPendingTickets();
             setCart(data);
+            saveLocalCart(data)
+            return data;
         } catch {
-            setToast({ type: 'error', message: 'Impossible de charger le panier' });
+            const localCart = loadLocalCart();
+            if (localCart) {
+                setCart(localCart);
+                setToast({ type: 'warning', message: 'Panier chargé localement (hors ligne)' });
+            } else {
+                setToast({ type: 'error', message: 'Impossible de charger le panier' });
+            }
+            return null;
         } finally {
             setLoading(false);
         }
@@ -53,6 +82,7 @@ function PagePanier() {
         try {
             const result = await TicketService.payAllPendingTickets();
             setToast({type: 'success', message: `Paiement réussi ! ${result.count} billet(s) confirmé(s).`});
+            clearLocalCart();
             await refreshCart();
             
             setTimeout(() => {
@@ -64,7 +94,7 @@ function PagePanier() {
     };
 
     // L'utilisateur n'est pas connecté
-    if (!state.isAuthenticated) {
+    if (!state.isAuthenticated && !loadLocalCart()) {
         return (
             <Box className="dark-page">
                 <div className="cart-empty-container">
@@ -199,7 +229,6 @@ function PagePanier() {
             </div>
             </div>
 
-            {/* Тост */}
             {toast && (
             <ToastNotification
                 type={toast.type}

@@ -5,6 +5,7 @@ import { TicketService } from '../../../api/services/TicketService';
 import type { MatchAvailability } from '../../../api/types/Match';
 import type { TicketCategory } from '../../../api/types/Tickets';
 import "./ReserveTicketPopUp.css"
+import ToastNotification from '../../Common/ToastNotification';
 
 interface TicketReserveDialogProps {
   match: MatchAvailability;
@@ -25,7 +26,9 @@ export function ReserveTicketPopUp({match,open,onClose,onSuccess,refreshCart}: T
 
   const selectedInfo = category ? match.categories?.[category] : null;
   const canAdd = category && selectedInfo && selectedInfo.availableSeats >= quantity;
+  const [toast, setToast] = useState<{ type: 'success' | 'error' | 'warning' | 'info'; message: string } | null>(null);
 
+  
   const handleAdd = async () => {
     if (!canAdd || !category) return;
 
@@ -41,6 +44,7 @@ export function ReserveTicketPopUp({match,open,onClose,onSuccess,refreshCart}: T
       onClose();
     } catch (err) {
       console.error('Erreur:', err);
+      setToast({ type: 'error', message: 'Limite de 6 billets' });
     }
 
   };
@@ -98,6 +102,13 @@ export function ReserveTicketPopUp({match,open,onClose,onSuccess,refreshCart}: T
           {`Ajouter (${selectedInfo ? selectedInfo.price * quantity : 0} €)`}
         </Button>
       </DialogActions>
+      {toast && (
+        <ToastNotification
+          type={toast.type}
+          message={toast.message}            
+          onClose={() => setToast(null)}
+        />
+      )}
     </Dialog>
   );
 }
